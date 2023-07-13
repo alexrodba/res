@@ -1,14 +1,19 @@
 # Site
 title:              RES!
 bio:                'Punk rock en català, fills de puta.'
-description:        "Moon is a minimal, one column jekyll theme for your blog."
+description:        "Pàgina oficial dels RES!, la trinca del punk rock"
 reading_time:       true
 words_per_minute:   200
 logo:               'assets/img/logo.jpeg'
 background:         'assets/img/bg.jpeg'
 tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_US
-url:                https://alexrodba.github.io/res/
+url:
+#url:                https://alexrodba.github.io/res
+
+# Helpers
+
+img_dir:            /assets/img/
 
 # Jekyll
 permalink:          /:title/
@@ -38,19 +43,21 @@ disqus_shortname:   taylantatli
   #ad-slot:
 #bing-verify:
 #email:
-twitter:            username
-facebook:           username
-github-url:         username
+#twitter:            username
+#facebook:           username
+#github-url:         username
 #stackoverflow:     123456/username   from a "http://stackoverflow.com/users/123456/username" link
 #linkedin:          username
 #xing:              username
-instagram:          username
+instagram:          res_punk
+bandcamp:           resbcn
+spotify:            5TGsKoYoodgc42udARkKA4?si=KruYo3nBQwaSMyLDwehTzg
 #lastfm:            username
 #tumblr:            username
 #medium:            '@username'
 #pinterest:         username
 #foursquare:        username
-steam:              username
+#steam:              username
 #dribbble:          username
 #youtube:           username
 #youtube-channel:   channel
