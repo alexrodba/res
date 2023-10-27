@@ -1,8 +1,8 @@
 # Site
 title:              RES!
 bio:                'Punk rock en català, fills de puta.'
-description:        "Pàgina oficial dels RES!, la trinca del punk rock"
-reading_time:       true
+description:        'Pàgina oficial dels RES!, la trinca del punk rock'
+reading_time:       false
 words_per_minute:   200
 logo:               'assets/img/logo.jpeg'
 background:         'assets/img/bg.jpeg'
@@ -30,8 +30,6 @@ sass:
   sass_dir:         _sass
   style:            compressed
 
-# Comments
-disqus_shortname:   taylantatli
 
 # Social
 # if you don't have any of social below, comment the line.

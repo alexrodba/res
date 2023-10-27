@@ -66,6 +66,33 @@ h3.title a {
 	}
 }
 
+// lyrics list
+.lyrics-list {
+    text-align: left;
+	ul {
+		list-style: inside;
+		padding-left: 0;
+	}
+	li {
+		margin: 0 10px;
+		text-decoration: none;
+		background: $white;
+		color: $color_shark;
+		a {
+			@include font-rem(20);
+			text-decoration: none;
+			color: $color_shark;
+            &:hover {
+                color: $red;
+            }
+		}
+		p {
+			font-weight: lighter;
+			@include font-rem(16);
+		}
+	}
+}
+
 // quotes
 blockquote {
 	font-family:$alt-font;

@@ -1,6 +1,6 @@
 ---
 layout: post-list
-title: All Posts
-excerpt: "A List of Posts"
+title: Notícies
+excerpt: "Totes les nostres notícies"
 comments: false
 ---
