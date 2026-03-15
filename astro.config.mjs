@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://res-punk.github.io',
+  site: 'https://alexrodba.github.io',
+  base: '/res',
   output: 'static',
 });
