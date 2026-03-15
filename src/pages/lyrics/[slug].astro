@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const lyrics = await getCollection('lyrics');
+  return lyrics.map((lyric) => ({
+    params: { slug: lyric.id },
+    props: { lyric },
+  }));
+}
+
+const { lyric } = Astro.props;
+const { Content } = await render(lyric);
+---
+
+<Layout title={lyric.data.title}>
+  <div class="page-wrap">
+    <p class="breadcrumb">
+      <a href="/lyrics">Lletres</a>
+      <span class="sep">/</span>
+      <a href="/lyrics">{lyric.data.album}</a>
+    </p>
+
+    <h1 class="page-title">{lyric.data.title}</h1>
+
+    <div class="lyric-content">
+      <Content />
+    </div>
+
+    <footer class="lyric-footer">
+      <span>{lyric.data.album} · {lyric.data.date.getFullYear()}</span>
+      <span>{lyric.data.composer}</span>
+      <span>Mescla: {lyric.data.mixer}</span>
+    </footer>
+  </div>
+</Layout>

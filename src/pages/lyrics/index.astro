@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { albums } from '../../data/albums';
+
+const allLyrics = await getCollection('lyrics');
+
+const byAlbum = new Map<string, typeof allLyrics>();
+for (const album of albums) {
+  const songs = allLyrics.filter((l) => l.data.album === album.name);
+  songs.sort((a, b) => {
+    const ai = album.songs.indexOf(a.data.title);
+    const bi = album.songs.indexOf(b.data.title);
+    return ai - bi;
+  });
+  byAlbum.set(album.name, songs);
+}
+---
+
+<Layout title="Lletres">
+  <div class="page-wrap">
+    <h1 class="page-title">Lletres</h1>
+
+    {albums.map((album, i) => {
+      const songs = byAlbum.get(album.name) ?? [];
+      return (
+        <div class="album-section" style={i > 0 ? 'margin-top:60px;' : ''}>
+          <div class="album-section-header">
+            <span class="album-section-title">{album.name}</span>
+            <span class="album-section-year">{album.year}</span>
+          </div>
+          <ul class="tracklist">
+            {songs.map((lyric, j) => (
+              <li>
+                <a href={`/lyrics/${lyric.id}`}>
+                  <span class="track-num">{String(j + 1).padStart(2, '0')}</span>
+                  <span class="track-name">{lyric.data.title}</span>
+                  <span class="track-arrow">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    })}
+  </div>
+</Layout>

@@ -1,0 +1,19 @@
+---
+title: "Polla vella"
+date: 2022-03-29
+album: "Sou tots uns fills de puta"
+composer: "Enric, Aimar i Àlex"
+mixer: "Àlex Martínez"
+excerpt: "Qui et va dir que..."
+---
+
+Qui et va dir que<br>
+passat de voltes, va ser un engany la joventut.
+
+La dictatura de l'adult.<br>
+Estàs en la merda i vas fins al cul. I vas fins al cul!
+
+No miris enrera, no miris endavant.<br>
+El futur era mentida, i l'estàs palmant.
+
+Ets un polla vella.

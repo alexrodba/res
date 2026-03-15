@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { albums } from '../data/albums';
+---
+
+<Layout title="Qui som">
+  <div class="page-wrap">
+    <h1 class="page-title">Qui som</h1>
+
+    <div style="border-left: 3px solid var(--red); padding-left: 20px; margin-bottom: 60px;">
+      <p style="font-size: 18px; line-height: 1.7; color: var(--bone); font-style: italic;">"Els <strong>RES!</strong> són La Trinca del punk rock."</p>
+      <p style="font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--dim); margin-top: 12px;">— Kerrang</p>
+    </div>
+
+    <section style="margin-bottom: 60px;">
+      <h2 style="font-family: 'Anton', sans-serif; font-size: 32px; color: var(--bone); margin-bottom: 20px;">La banda</h2>
+      <div class="prose-content">
+        <p>Som un grup de punk rock de Barcelona. Parlem molt als concerts i vestim encara com si tinguéssim 15 anys.</p>
+        <p>Després de tots aquests anys podem reconèixer públicament que ens agrada el Conspiracy of One d'Offspring.</p>
+      </div>
+    </section>
+
+    <section style="margin-bottom: 60px;">
+      <h2 style="font-family: 'Anton', sans-serif; font-size: 32px; color: var(--bone); margin-bottom: 20px;">Música</h2>
+      <p style="font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--dim); margin-bottom: 40px;">Hem gravat dos àlbums. Escolta'ls aquí.</p>
+      {albums.map((album) => (
+        <div style="margin-bottom: 48px;">
+          <p style="font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 6px;">{album.year}</p>
+          <h3 style="font-family: 'Anton', sans-serif; font-size: 24px; color: var(--bone); margin-bottom: 16px;">{album.name}</h3>
+          <iframe
+            src={`https://open.spotify.com/embed/album/${album.spotifyId}?utm_source=generator`}
+            width="100%"
+            height="352"
+            frameborder="0"
+            allowfullscreen
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            style="border-radius:4px; border: 1px solid var(--line);"
+          />
+        </div>
+      ))}
+    </section>
+
+    <section style="margin-bottom: 60px;">
+      <h2 style="font-family: 'Anton', sans-serif; font-size: 32px; color: var(--bone); margin-bottom: 20px;">Fotos</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;">
+        {['1.jpeg', '2.jpeg', 'band.jpeg', '4.jpg', '3.jpeg'].map((img) => (
+          <div style="overflow: hidden; aspect-ratio: 1;">
+            <img
+              src={`/img/about/${img}`}
+              alt="Foto dels RES!"
+              style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1); transition: filter 0.4s, transform 0.4s;"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 style="font-family: 'Anton', sans-serif; font-size: 32px; color: var(--bone); margin-bottom: 20px;">Contractació</h2>
+      <p class="prose-content" style="margin-bottom: 32px;">Si vols que toquem al teu local o a la teva boda, bateig o comunió, escriu-nos per Instagram.</p>
+      <a href="https://www.instagram.com/res_punk" target="_blank" rel="noopener" class="btn btn-outline">
+        Contactar per Instagram
+      </a>
+    </section>
+  </div>
+</Layout>

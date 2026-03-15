@@ -1,0 +1,18 @@
+---
+title: "Malmès"
+date: 2022-03-29
+album: "Sou tots uns fills de puta"
+composer: "Enric, Aimar i Àlex"
+mixer: "Àlex Martínez"
+excerpt: "No et pensis que va tot bé..."
+---
+
+No et pensis que et va tot bé.<br>
+Ets un petat i no saps que<br>
+Les coses passen i, potser,<br>
+aquí ja no hi tornaràs més.
+
+Sents que la foscor existeix.<br>
+Un dia més o un dia menys,<br>
+les coses cauen pel seu pes.<br>
+Esclau de tu, ja estàs malmès.

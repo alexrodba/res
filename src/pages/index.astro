@@ -1,0 +1,334 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import { albums } from '../data/albums';
+
+const allLyrics = await getCollection('lyrics');
+
+// Group and sort lyrics by album, using albums.ts track order
+const byAlbum = new Map<string, typeof allLyrics>();
+for (const album of albums) {
+  const songs = allLyrics.filter((l) => l.data.album === album.name);
+  songs.sort((a, b) => {
+    const ai = album.songs.indexOf(a.data.title);
+    const bi = album.songs.indexOf(b.data.title);
+    return ai - bi;
+  });
+  byAlbum.set(album.name, songs);
+}
+
+// Pre-render lyric content
+const renderedLyrics = new Map<string, string>();
+for (const lyric of allLyrics) {
+  const { Content } = await render(lyric);
+  // We'll pass the id for linking, body content for accordion
+  renderedLyrics.set(lyric.id, lyric.body);
+}
+---
+
+<Layout>
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg" style="background-image: url('/img/bg.jpeg');"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-scanlines"></div>
+  <div class="hero-stack">
+    <span class="r">RES!</span>
+    <span class="r">RES!</span>
+    <span class="r">RES!</span>
+    <span class="r">RES!</span>
+  </div>
+  <div class="hero-hud">
+    <div>
+      <span class="hero-tag">Punk Rock · Barcelona · 2021</span>
+      <p class="hero-desc">Dos àlbums. Molts concerts.<br>Cap intenció de callar.</p>
+    </div>
+    <div class="hero-ctas">
+      <a href="https://open.spotify.com/artist/5TGsKoYoodgc42udARkKA4" target="_blank" rel="noopener" class="btn btn-fill">Escolta ara</a>
+      <a href="#concerts" class="btn btn-outline">Concerts</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ─── TICKER ─── -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Punk Rock Barcelona</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">Les Teves Merdes — 2022</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">Sou Tots Uns Fills De Puta — 2022</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">@res_punk</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">Spotify · Bandcamp</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">Punk Rock en Català</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">Punk Rock Barcelona</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">Les Teves Merdes — 2022</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">Sou Tots Uns Fills De Puta — 2022</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">@res_punk</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">Spotify · Bandcamp</span><span class="ticker-sep ticker-item">///</span>
+    <span class="ticker-item">Punk Rock en Català</span><span class="ticker-sep ticker-item">///</span>
+  </div>
+</div>
+
+<!-- ─── NEWS ─── -->
+<section id="news">
+  <div class="section">
+    <p class="eyebrow">Notícies</p>
+    <div class="news-grid">
+      <div class="news-item">
+        <div>
+          <div class="n-date">Març 2026</div>
+          <div class="n-title">Material nou<br>en <em>camí.</em></div>
+        </div>
+        <div>
+          <p class="n-body">Estem treballant en coses noves. Ràbia nova. Dates d'enregistrament confirmades per a la primavera. Més soroll. Més RES!</p>
+          <a href="#" class="n-link">Llegir més</a>
+        </div>
+      </div>
+      <div class="news-item">
+        <div>
+          <div class="n-date">Novembre 2022</div>
+          <div class="n-title">Segon àlbum<br><em>disponible.</em></div>
+        </div>
+        <div>
+          <p class="n-body">"Sou Tots Uns Fills De Puta" ja és fora. Deu cançons. Tota la merda acumulada en format sonor. Disponible a Spotify i Bandcamp des del novembre de 2022.</p>
+          <a href="https://resbcn.bandcamp.com" target="_blank" rel="noopener" class="n-link">Escolta a Bandcamp</a>
+        </div>
+      </div>
+      <div class="news-item">
+        <div>
+          <div class="n-date">Abril 2021</div>
+          <div class="n-title">RES! debuta amb<br><em>"Les Teves Merdes"</em></div>
+        </div>
+        <div>
+          <p class="n-body">Tres tios, un garatge, massa coses a dir. El primer disc arriba pocs mesos després de formar-se. Punk rock en català des de Barcelona.</p>
+          <a href="https://open.spotify.com/artist/5TGsKoYoodgc42udARkKA4" target="_blank" rel="noopener" class="n-link">Escolta a Spotify</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PHOTO BREAK 1 ─── -->
+<div class="photo-break">
+  <div class="photo-break-bg" style="background-image: url('/img/bg.jpeg');"></div>
+  <div class="photo-break-overlay"></div>
+  <div class="photo-break-text">
+    <div class="photo-quote">
+      Tres tios.
+      <em>Una sola idea.</em>
+      Sonar fort.
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONCERTS ─── -->
+<section id="concerts">
+  <div class="section-full" style="max-width:1280px; margin:0 auto;">
+    <p class="eyebrow">Propers concerts</p>
+    <div class="concert-table">
+      <div class="concert-row">
+        <div><div class="c-day">15</div><div class="c-mon">Abr 2026</div></div>
+        <div><div class="c-venue">Sala Rocksound</div><div class="c-loc">Barcelona, Catalunya</div></div>
+        <div class="c-badge">Concert</div>
+        <a href="#" class="c-ticket">Entrades</a>
+      </div>
+      <div class="concert-row">
+        <div><div class="c-day">22</div><div class="c-mon">Mai 2026</div></div>
+        <div><div class="c-venue">Festival Contrabanda</div><div class="c-loc">Barcelona, Catalunya</div></div>
+        <div class="c-badge">Festival</div>
+        <a href="#" class="c-ticket">Entrades</a>
+      </div>
+      <div class="concert-row">
+        <div><div class="c-day">07</div><div class="c-mon">Jun 2026</div></div>
+        <div><div class="c-venue">Sala Apolo</div><div class="c-loc">Barcelona, Catalunya</div></div>
+        <div class="c-badge">Concert</div>
+        <a href="#" class="c-ticket">Entrades</a>
+      </div>
+      <div class="concert-row" style="opacity:0.4;">
+        <div><div class="c-day">11</div><div class="c-mon">Nov 2022</div></div>
+        <div><div class="c-venue">Bar Ceferino</div><div class="c-loc">Barcelona, Catalunya</div></div>
+        <div class="c-badge">Passat</div>
+        <span class="c-sold">Exhaurit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MUSIC ─── -->
+<section id="music">
+  <div class="section">
+    <p class="eyebrow">Discografia</p>
+    <div class="albums-grid">
+      {albums.map((album, i) => (
+        <div class="album-card">
+          <div class="album-cover">
+            <div class={`album-art album-art-${i + 1}`}>
+              <div class="album-logo">
+                <span class="r">RES!</span>
+                <span class="r">RES!</span>
+                <span class="r">RES!</span>
+                <span class="r">RES!</span>
+              </div>
+              <span class="album-sub">{album.name}</span>
+            </div>
+            <div class="album-hover">
+              <div class="album-meta">
+                <div class="a-yr">{album.year} · {i === 0 ? 'Primer àlbum' : 'Segon àlbum'}</div>
+                <div class="a-ttl">{album.name}</div>
+                <div class="a-lnks">
+                  <a href={`https://open.spotify.com/album/${album.spotifyId}`} target="_blank" rel="noopener" class="a-lnk">Spotify</a>
+                  <a href="https://resbcn.bandcamp.com" target="_blank" rel="noopener" class="a-lnk">Bandcamp</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="album-info">
+            <span class="a-yr">{album.year}</span>
+            <span class="a-ttl">{album.name}</span>
+            <div class="a-lnks">
+              <a href={`https://open.spotify.com/album/${album.spotifyId}`} target="_blank" rel="noopener" class="a-lnk">Spotify</a>
+              <a href="https://resbcn.bandcamp.com" target="_blank" rel="noopener" class="a-lnk">Bandcamp</a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ─── PHOTO BREAK 2 ─── -->
+<div class="photo-break" style="height:50vh;">
+  <div class="photo-break-bg" style="background-image: url('/img/bg.jpeg'); background-position: center 35%;"></div>
+  <div class="photo-break-overlay" style="background: linear-gradient(to bottom, rgba(10,10,9,0.3), rgba(10,10,9,0.7));"></div>
+</div>
+
+<!-- ─── LYRICS ─── -->
+<section id="lyrics">
+  <div class="section-full" style="max-width:1280px; margin:0 auto;">
+    <p class="eyebrow">Lletres</p>
+
+    {albums.map((album, ai) => {
+      const songs = byAlbum.get(album.name) ?? [];
+      return (
+        <>
+          <div class="lyrics-album-header" style={ai > 0 ? 'margin-top:60px;' : ''}>
+            <span class="lyrics-album-title">{album.name}</span>
+            <span class="lyrics-album-year">{album.year}</span>
+          </div>
+          <div class="lyrics-grid">
+            {songs.map((lyric, j) => (
+              <div class="lyric-row" data-lyric-toggle>
+                <div class="lyric-header">
+                  <span class="lyric-num">{String(j + 1).padStart(2, '0')}</span>
+                  <span class="lyric-title">{lyric.data.title}</span>
+                  <span class="lyric-plus">+</span>
+                </div>
+                <div class="lyric-body">
+                  {lyric.body}
+                  <a href={`/lyrics/${lyric.id}`} class="lyric-page-link">Veure lletra completa →</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      );
+    })}
+  </div>
+</section>
+
+<!-- ─── MEDIA ─── -->
+<section id="media">
+  <div class="section">
+    <p class="eyebrow">Fotos &amp; Vídeos</p>
+    <div class="media-photos">
+      {[
+        { src: '/img/about/1.jpeg', alt: 'RES! concert' },
+        { src: '/img/about/2.jpeg', alt: 'RES! foto banda' },
+        { src: '/img/about/band.jpeg', alt: 'RES! foto banda' },
+        { src: '/img/about/4.jpg', alt: 'RES! cartell' },
+        { src: '/img/about/3.jpeg', alt: 'RES! foto' },
+        { src: '/img/bg.jpeg', alt: 'RES! foto' },
+      ].map(({ src, alt }) => (
+        <div class="media-photo">
+          <img src={src} alt={alt} loading="lazy" />
+        </div>
+      ))}
+    </div>
+
+    <p class="eyebrow" style="margin-top:60px;">Vídeos</p>
+    <div class="videos-grid">
+      <a href="https://www.youtube.com/@res_punk" target="_blank" rel="noopener" class="video-item">
+        <div class="video-thumb">
+          <div class="video-play"><div class="video-play-icon"></div></div>
+        </div>
+        <div class="video-label">
+          <div class="video-title">Canal de YouTube</div>
+          <div class="video-sub">@res_punk · Tots els vídeos</div>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/res_punk/" target="_blank" rel="noopener" class="video-item">
+        <div class="video-thumb">
+          <div class="video-play"><div class="video-play-icon"></div></div>
+        </div>
+        <div class="video-label">
+          <div class="video-title">Instagram</div>
+          <div class="video-sub">@res_punk · Lives &amp; stories</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="about-bg" style="background-image: url('/img/bg.jpeg');"></div>
+  <div class="about-overlay"></div>
+  <div class="about-scanlines"></div>
+  <div class="about-inner">
+    <p class="eyebrow">Qui som</p>
+    <div class="about-big">
+      Tres tios.<br>
+      <em>Barcelona.</em>
+      Massa coses<br>a dir.
+    </div>
+    <p class="about-text">RES! neix el 2021 amb una missió clara: sonar fort i dir-ho tot sense filtres. Tres amics units per un amor comú al punk rock i una necessitat imperiosa d'expressar el que passa al seu voltant — en català, sense disculpes.</p>
+    <p class="about-text">En menys d'un any del seu naixement ja tenien el primer disc al carrer. "Les Teves Merdes" (2022) i "Sou Tots Uns Fills De Puta" (2022) marquen el to: punk rock directe, honest, en la nostra llengua, fet des de les entranyes de Barcelona.</p>
+    <p class="about-text">Dos àlbums, molts concerts, cap intenció de callar.</p>
+    <div class="about-members">
+      <div class="member">
+        <div class="member-name">Àlex</div>
+        <div class="member-role">Veu · Guitarra</div>
+      </div>
+      <div class="member">
+        <div class="member-name">Enric</div>
+        <div class="member-role">Baix</div>
+      </div>
+      <div class="member">
+        <div class="member-name">Aimar</div>
+        <div class="member-role">Bateria</div>
+      </div>
+    </div>
+    <br>
+    <a href="https://www.instagram.com/res_punk/" target="_blank" rel="noopener" class="btn btn-outline">Instagram @res_punk</a>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="contact-inner">
+    <h2 class="contact-title">Contacta<br>amb RES!</h2>
+    <p class="contact-sub">Reserves de concerts, col·laboracions, premsa o simplement per dir hola.</p>
+    <a href="mailto:hola@respunk.cat" class="contact-email">hola@respunk.cat</a>
+  </div>
+</section>
+</Layout>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const row = (e.target as Element).closest('[data-lyric-toggle]');
+    if (row) row.classList.toggle('open');
+  });
+</script>

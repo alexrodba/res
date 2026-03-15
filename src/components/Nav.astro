@@ -1,0 +1,21 @@
+---
+---
+
+<nav id="nav">
+  <a href="/" class="nav-logo">RES<em>!</em></a>
+  <ul class="nav-links">
+    <li><a href="/#news">Notícies</a></li>
+    <li><a href="/#concerts">Concerts</a></li>
+    <li><a href="/#music">Música</a></li>
+    <li><a href="/#lyrics">Lletres</a></li>
+    <li><a href="/#media">Mitjans</a></li>
+    <li><a href="/#about">Qui som</a></li>
+  </ul>
+</nav>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav?.classList.toggle('scrolled', window.scrollY > 60);
+  });
+</script>

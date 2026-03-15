@@ -1,0 +1,22 @@
+---
+title: "Les teves merdes"
+date: 2023-07-03
+album: "Les teves merdes"
+composer: "Enric, Aimar i Àlex"
+mixer: "Àlex Martínez"
+excerpt: "Només penses en les teves merdes!..."
+---
+
+Només penses en les teves merdes!
+
+El judici per culpar,<br>
+la ignorància per jutjar.
+
+Només penses en les teves merdes!
+
+I ara sí que m'estàs tornant boig!
+
+Ara ja saps que si vols tornar<br>
+la porta és oberta però no m'hi trobaràs.<br>
+Ara ja saps que si vols tornar<br>
+la porta és oberta però no m'hi trobaràs.
