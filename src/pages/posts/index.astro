@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { withBase } from '../../lib/base';
 
 const posts = await getCollection('posts');
 posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -16,7 +17,7 @@ posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
       <ul class="post-list">
         {posts.map((post) => (
           <li>
-            <a href={`/posts/${post.id}`}>
+            <a href={withBase(`/posts/${post.id}`)}>
               <span class="post-title">{post.data.title}</span>
               <span class="post-date">
                 {post.data.date.toLocaleDateString('ca-ES', { year: 'numeric', month: 'long', day: 'numeric' })}

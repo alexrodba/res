@@ -7,20 +7,20 @@ mixer: "Àlex Martínez"
 excerpt: "Crits! Cops! Frustació profunda!..."
 ---
 
-Crits! Cops! Frustració profunda!<br>
-No se, d'on vens, perquè no et fas absent.<br>
+Crits! Cops! Frustració profunda!
+No se, d'on vens, perquè no et fas absent.
 Són finals inminents repetint-se inconscients.
 
-Ferides obertes que no es tanquen,<br>
-les mateixes històries, les mateixes voltes.<br>
-Però potser serà aquí, que corri fins l'horitzó<br>
+Ferides obertes que no es tanquen,
+les mateixes històries, les mateixes voltes.
+Però potser serà aquí, que corri fins l'horitzó
 d'aquest paisatge. Desolació.
 
-Rebuscant el passat, sense solució,<br>
-falsa enyorança, del que ha estat<br>
+Rebuscant el passat, sense solució,
+falsa enyorança, del que ha estat
 submergit en un pensament enfonsat!
 
-Ferides obertes que no es tanquen,<br>
-les mateixes històries, les mateixes voltes.<br>
-Però potser serà aquí, que corri fins l'horitzó<br>
+Ferides obertes que no es tanquen,
+les mateixes històries, les mateixes voltes.
+Però potser serà aquí, que corri fins l'horitzó
 d'aquest paisatge. Desolació.

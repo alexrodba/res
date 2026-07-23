@@ -7,7 +7,7 @@ mixer: "Àlex Martínez"
 excerpt: "Assegut, perdut, fotut..."
 ---
 
-Assegut, perdut, fotut, begut,<br>
-en aquest banc.<br>
-Que ja no hi és. Que ja no hi és,<br>
+Assegut, perdut, fotut, begut,
+en aquest banc.
+Que ja no hi és. Que ja no hi és,
 no hi és!

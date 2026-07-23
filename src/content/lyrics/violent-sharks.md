@@ -7,17 +7,17 @@ mixer: "Àlex Martínez"
 excerpt: "Violent sharks, violent sharks..."
 ---
 
-Violent sharks! Violent sharks!<br>
+Violent sharks! Violent sharks!
 We're gonna need a bigger boat!
 
-Violent sharks! Violent sharks!<br>
+Violent sharks! Violent sharks!
 Smile son of a h$*%!%
 
-Violent sharks! Violent sharks!<br>
+Violent sharks! Violent sharks!
 We're gonna need a bigger boat!
 
-Violent sharks! Violent sharks!<br>
+Violent sharks! Violent sharks!
 Smile son of a h$*%!%
 
-Shark, attack!<br>
+Shark, attack!
 Shark, attack!

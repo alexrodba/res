@@ -1,10 +1,11 @@
 ---
+import { withBase } from '../lib/base';
 const year = new Date().getFullYear();
 ---
 
 <footer>
   <div class="footer-top">
-    <div class="footer-logo">RES<em>!</em></div>
+    <div class="footer-logo">No som <em>RES!</em></div>
     <div class="footer-socials">
       <a href="https://www.instagram.com/res_punk/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://open.spotify.com/artist/5TGsKoYoodgc42udARkKA4" target="_blank" rel="noopener">Spotify</a>
@@ -12,15 +13,15 @@ const year = new Date().getFullYear();
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© RES! 2021–{year} · Barcelona · Punk Rock en Català</span>
-    <nav class="footer-nav">
-      <a href="/#news">Notícies</a>
-      <a href="/#concerts">Concerts</a>
-      <a href="/#music">Música</a>
-      <a href="/#lyrics">Lletres</a>
-      <a href="/#media">Mitjans</a>
-      <a href="/#about">Qui som</a>
-      <a href="/#contact">Contacte</a>
+    <span class="footer-copy">© No som RES! 2021–{year} · Barcelona · Punk Rock en Català</span>
+    <nav class="footer-nav" aria-label="Peu de pàgina">
+      <a href={withBase('/#news')}>Notícies</a>
+      <a href={withBase('/#concerts')}>Concerts</a>
+      <a href={withBase('/#music')}>Música</a>
+      <a href={withBase('/#lyrics')}>Lletres</a>
+      <a href={withBase('/#media')}>Mitjans</a>
+      <a href={withBase('/#about')}>Qui som</a>
+      <a href={withBase('/#contact')}>Contacte</a>
     </nav>
   </div>
 </footer>

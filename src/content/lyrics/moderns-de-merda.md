@@ -11,10 +11,10 @@ Moderns de merda no valeu res. No valeu res. No valeu res!
 
 Moderns de merda no valeu res. No valeu res. No valeu res!
 
-Beveu birra pel carrer,<br>
+Beveu birra pel carrer,
 un dissabte que no us ha anat bé.
 
-Us foteu ratlles amb el carnet<br>
+Us foteu ratlles amb el carnet
 del puto club Super3.
 
 Moderns de merda no valeu res. No valeu res. No valeu res!

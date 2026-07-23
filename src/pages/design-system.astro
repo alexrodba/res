@@ -1,0 +1,265 @@
+---
+// ─────────────────────────────────────────────────────────────
+// INTERNAL DESIGN SYSTEM — not linked in nav, noindex.
+// Renders the real components from global.css so edits to tokens
+// or components show up here and on the live site together.
+// URL: /design-system
+// ─────────────────────────────────────────────────────────────
+import '../styles/global.css';
+import { albums } from '../data/albums';
+import { withBase } from '../lib/base';
+
+const colors = [
+  { name: '--red',   hex: '#e8001d', note: 'Accent / punk red' },
+  { name: '--bone',  hex: '#f0ece2', note: 'Primary text / bone' },
+  { name: '--black', hex: '#0a0a09', note: 'Background' },
+  { name: '--grey',  hex: '#1a1a18', note: 'Elevated surface' },
+  { name: '--line',  hex: '#1e1e1c', note: 'Hairline borders' },
+];
+const alphas = [
+  { name: '--mid', val: 'rgba(240,236,226,0.45)', note: 'Body copy' },
+  { name: '--dim', val: 'rgba(240,236,226,0.18)', note: 'Muted / labels' },
+];
+
+const displayScale = [
+  { label: 'Hero word',   px: 'clamp(88 → 180)', cls: 'sg-anton', size: '64px' },
+  { label: 'Page title',  px: 'clamp(48 → 80)',  cls: 'sg-anton', size: '48px' },
+  { label: 'Section H',   px: 'clamp(32 → 56)',  cls: 'sg-anton', size: '40px' },
+  { label: 'Card title',  px: '20–28px',         cls: 'sg-anton', size: '24px' },
+];
+---
+
+<!doctype html>
+<html lang="ca">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Design System — No som RES! [INTERN]</title>
+    <link rel="icon" href={withBase('/favicon.ico')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <style>
+      body { padding: 0; }
+      .sg-bar { position: sticky; top: 0; z-index: 50; background: var(--red); color: var(--bone); padding: 10px 40px; font-size: 9px; letter-spacing: 4px; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+      .sg-bar strong { font-weight: 700; }
+      .sg-wrap { max-width: 1100px; margin: 0 auto; padding: 64px 40px 120px; }
+      .sg-lede { font-family: 'Anton', sans-serif; font-size: clamp(40px, 7vw, 72px); line-height: 0.9; letter-spacing: -2px; margin-bottom: 16px; }
+      .sg-lede em { font-style: normal; color: var(--red); }
+      .sg-sub { font-size: 13px; line-height: 1.9; color: var(--mid); max-width: 620px; margin-bottom: 8px; }
+      .sg-toc { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 28px 0 0; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+      .sg-toc a { color: var(--dim); border-bottom: 1px solid transparent; padding-bottom: 2px; }
+      .sg-toc a:hover { color: var(--red); border-color: var(--red); }
+
+      section.sg { padding: 64px 0; border-top: 1px solid var(--line); }
+      .sg-h { font-family: 'Anton', sans-serif; font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 4px; }
+      .sg-hnote { font-size: 11px; color: var(--dim); letter-spacing: 1px; margin-bottom: 36px; }
+
+      /* generic tile the design lives on */
+      .sg-stage { background: #050504; border: 1px solid var(--line); padding: 48px; display: flex; align-items: center; justify-content: center; min-height: 120px; position: relative; overflow: hidden; }
+      .sg-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+      .sg-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .sg-cap { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin-top: 10px; }
+
+      /* colour swatches */
+      .sw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+      .sw { border: 1px solid var(--line); }
+      .sw-chip { height: 88px; }
+      .sw-meta { padding: 12px 14px; }
+      .sw-name { font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+      .sw-hex { font-size: 11px; color: var(--mid); margin-top: 3px; }
+      .sw-note { font-size: 10px; color: var(--dim); margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+
+      .sg-anton { font-family: 'Anton', sans-serif; line-height: 0.9; letter-spacing: -1px; color: var(--bone); }
+      .type-row { display: flex; align-items: baseline; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+      .type-row .meta { font-size: 10px; letter-spacing: 1px; color: var(--dim); text-transform: uppercase; width: 190px; flex-shrink: 0; }
+      .mono-sample { font-family: 'Space Mono', monospace; }
+    </style>
+  </head>
+  <body>
+    <header class="sg-bar">
+      <span><strong>◉ Intern</strong> · Design System</span>
+      <span>No som RES!</span>
+    </header>
+
+    <main class="sg-wrap">
+      <h1 class="sg-lede">No som <em>RES!</em><br>Design System</h1>
+      <p class="sg-sub">Referència interna dels tokens i components. Tot el que veus aquí surt directament de <code>global.css</code> — si edites un component aquí, també canvia a la web.</p>
+      <nav class="sg-toc">
+        <a href="#colors">Colors</a>
+        <a href="#type">Tipografia</a>
+        <a href="#wordmark">Wordmark</a>
+        <a href="#buttons">Botons</a>
+        <a href="#labels">Etiquetes</a>
+        <a href="#albums">Portades</a>
+        <a href="#cards">Targetes</a>
+        <a href="#ticker">Ticker</a>
+        <a href={withBase('/design-system/contrast')} style="color:var(--red-text);border-color:var(--red-text);">Contrast A11y →</a>
+      </nav>
+
+      <!-- COLORS -->
+      <section class="sg" id="colors">
+        <div class="sg-h">Colors</div>
+        <div class="sg-hnote">Variables CSS a <code>:root</code></div>
+        <div class="sw-grid">
+          {colors.map((c) => (
+            <div class="sw">
+              <div class="sw-chip" style={`background:${c.hex}`}></div>
+              <div class="sw-meta">
+                <div class="sw-name">{c.name}</div>
+                <div class="sw-hex">{c.hex}</div>
+                <div class="sw-note">{c.note}</div>
+              </div>
+            </div>
+          ))}
+          {alphas.map((c) => (
+            <div class="sw">
+              <div class="sw-chip" style={`background:${c.val}`}></div>
+              <div class="sw-meta">
+                <div class="sw-name">{c.name}</div>
+                <div class="sw-hex">{c.val}</div>
+                <div class="sw-note">{c.note}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- TYPE -->
+      <section class="sg" id="type">
+        <div class="sg-h">Tipografia</div>
+        <div class="sg-hnote">Display: Anton · Cos: Space Mono</div>
+        {displayScale.map((t) => (
+          <div class="type-row">
+            <div class="meta">{t.label}<br>{t.px}</div>
+            <div class="sg-anton" style={`font-size:${t.size}`}>No som RES!</div>
+          </div>
+        ))}
+        <div class="type-row">
+          <div class="meta">Body / Space Mono<br>13px · 1.9</div>
+          <div class="mono-sample" style="font-size:13px; line-height:1.9; color:var(--mid); max-width:520px;">Punk rock en català des de Barcelona. Dos àlbums, molts concerts, cap intenció de callar.</div>
+        </div>
+        <div class="type-row">
+          <div class="meta">Eyebrow<br>9px · 5px tracking</div>
+          <p class="eyebrow" style="margin:0; max-width:320px;">Notícies</p>
+        </div>
+      </section>
+
+      <!-- WORDMARK -->
+      <section class="sg" id="wordmark">
+        <div class="sg-h">Wordmark</div>
+        <div class="sg-hnote">Logo apilat de l'hero — <code>.hero-stack .r</code>. Zona d'iteració principal.</div>
+        <div class="sg-grid2">
+          <div>
+            <div class="sg-stage">
+              <div class="hero-stack" style="position:static; transform:none; width:auto;">
+                <span class="r" style="font-size:64px;">NO</span>
+                <span class="r" style="font-size:64px;">SOM</span>
+                <span class="r" style="font-size:64px;">RES!</span>
+              </div>
+            </div>
+            <div class="sg-cap">Actual · majúscules</div>
+          </div>
+          <div>
+            <div class="sg-stage">
+              <div class="nav-logo" style="font-size:40px;">No som <em>RES!</em></div>
+            </div>
+            <div class="sg-cap">Nav / footer lockup · <code>.nav-logo</code></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BUTTONS -->
+      <section class="sg" id="buttons">
+        <div class="sg-h">Botons</div>
+        <div class="sg-hnote"><code>.btn-fill</code> · <code>.btn-outline</code></div>
+        <div class="sg-stage">
+          <div class="sg-row">
+            <a class="btn btn-fill">Escolta ara</a>
+            <a class="btn btn-outline">Concerts</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- LABELS -->
+      <section class="sg" id="labels">
+        <div class="sg-h">Etiquetes &amp; enllaços</div>
+        <div class="sg-hnote">Badges, tickets i enllaços de secció</div>
+        <div class="sg-stage">
+          <div class="sg-row">
+            <span class="c-badge">Concert</span>
+            <span class="c-sold">Exhaurit</span>
+            <a class="c-ticket">Entrades</a>
+            <a class="n-link">Llegir més</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ALBUMS -->
+      <section class="sg" id="albums">
+        <div class="sg-h">Portades d'àlbum</div>
+        <div class="sg-hnote"><code>.album-art</code> — conserva el wordmark <strong>RES!</strong> de l'època (discos editats amb el nom antic)</div>
+        <div class="sg-grid2">
+          {albums.map((album, i) => (
+            <div>
+              <div class="album-cover" style="margin:0;">
+                <div class={`album-art album-art-${i + 1}`}>
+                  <div class="album-logo">
+                    <span class="r">RES!</span>
+                    <span class="r">RES!</span>
+                    <span class="r">RES!</span>
+                    <span class="r">RES!</span>
+                  </div>
+                  <span class="album-sub">{album.name}</span>
+                </div>
+              </div>
+              <div class="sg-cap">{album.name} · {album.year}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- CARDS -->
+      <section class="sg" id="cards">
+        <div class="sg-h">Targetes</div>
+        <div class="sg-hnote">Notícia i fila de concert</div>
+        <div class="sg-stage" style="display:block; padding:32px 40px;">
+          <div class="news-item" style="border:none; padding:0;">
+            <div>
+              <div class="n-date">Març 2026</div>
+              <div class="n-title">Material nou<br>en <em>camí.</em></div>
+            </div>
+            <div>
+              <p class="n-body">Estem treballant en coses noves. Ràbia nova. Més soroll.</p>
+              <a class="n-link">Llegir més</a>
+            </div>
+          </div>
+        </div>
+        <div class="sg-stage" style="display:block; padding:8px 40px; margin-top:16px;">
+          <div class="concert-row" style="border:none;">
+            <div><div class="c-day">15</div><div class="c-mon">Abr 2026</div></div>
+            <div><div class="c-venue">Sala Rocksound</div><div class="c-loc">Barcelona, Catalunya</div></div>
+            <div class="c-badge">Concert</div>
+            <a class="c-ticket">Entrades</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- TICKER -->
+      <section class="sg" id="ticker">
+        <div class="sg-h">Ticker</div>
+        <div class="sg-hnote">Marquesina — <code>.ticker</code></div>
+        <div class="ticker">
+          <div class="ticker-track">
+            <span class="ticker-item">No som RES!</span><span class="ticker-sep ticker-item">///</span>
+            <span class="ticker-item">Punk Rock Barcelona</span><span class="ticker-sep ticker-item">///</span>
+            <span class="ticker-item">Punk Rock en Català</span><span class="ticker-sep ticker-item">///</span>
+            <span class="ticker-item">No som RES!</span><span class="ticker-sep ticker-item">///</span>
+            <span class="ticker-item">Punk Rock Barcelona</span><span class="ticker-sep ticker-item">///</span>
+            <span class="ticker-item">Punk Rock en Català</span><span class="ticker-sep ticker-item">///</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

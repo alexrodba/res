@@ -1,21 +1,42 @@
 ---
+import { withBase } from '../lib/base';
 ---
 
-<nav id="nav">
-  <a href="/" class="nav-logo">RES<em>!</em></a>
-  <ul class="nav-links">
-    <li><a href="/#news">Notícies</a></li>
-    <li><a href="/#concerts">Concerts</a></li>
-    <li><a href="/#music">Música</a></li>
-    <li><a href="/#lyrics">Lletres</a></li>
-    <li><a href="/#media">Mitjans</a></li>
-    <li><a href="/#about">Qui som</a></li>
+<nav id="nav" aria-label="Principal">
+  <a href={withBase('/')} class="nav-logo">No som <em>RES!</em></a>
+  <button class="nav-toggle" aria-label="Obrir menú" aria-expanded="false" aria-controls="nav-menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-menu">
+    <li><a href={withBase('/#news')}>Notícies</a></li>
+    <li><a href={withBase('/#concerts')}>Concerts</a></li>
+    <li><a href={withBase('/#music')}>Música</a></li>
+    <li><a href={withBase('/#lyrics')}>Lletres</a></li>
+    <li><a href={withBase('/#media')}>Mitjans</a></li>
+    <li><a href={withBase('/#about')}>Qui som</a></li>
   </ul>
 </nav>
 
 <script>
   const nav = document.getElementById('nav');
+  const toggle = nav?.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+
   window.addEventListener('scroll', () => {
     nav?.classList.toggle('scrolled', window.scrollY > 60);
   });
+
+  function setMenu(open: boolean) {
+    nav?.classList.toggle('menu-open', open);
+    toggle?.setAttribute('aria-expanded', String(open));
+    toggle?.setAttribute('aria-label', open ? 'Tancar menú' : 'Obrir menú');
+  }
+
+  toggle?.addEventListener('click', () => {
+    setMenu(!nav?.classList.contains('menu-open'));
+  });
+
+  // Close when a link is tapped or on Escape
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
 </script>
