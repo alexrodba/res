@@ -7,12 +7,12 @@ mixer: "Àlex Martínez"
 excerpt: "No et pensis que va tot bé..."
 ---
 
-No et pensis que et va tot bé.<br>
-Ets un petat i no saps que<br>
-Les coses passen i, potser,<br>
+No et pensis que et va tot bé.
+Ets un petat i no saps que
+Les coses passen i, potser,
 aquí ja no hi tornaràs més.
 
-Sents que la foscor existeix.<br>
-Un dia més o un dia menys,<br>
-les coses cauen pel seu pes.<br>
+Sents que la foscor existeix.
+Un dia més o un dia menys,
+les coses cauen pel seu pes.
 Esclau de tu, ja estàs malmès.

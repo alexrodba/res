@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import { albums } from '../data/albums';
+import { withBase } from '../lib/base';
 
 const allLyrics = await getCollection('lyrics');
 
@@ -29,15 +30,14 @@ for (const lyric of allLyrics) {
 <Layout>
 <!-- ─── HERO ─── -->
 <section id="hero">
-  <div class="hero-bg" style="background-image: url('/img/bg.jpeg');"></div>
+  <div class="hero-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}');`}></div>
   <div class="hero-overlay"></div>
   <div class="hero-scanlines"></div>
-  <div class="hero-stack">
+  <h1 class="hero-stack" aria-label="No som RES!">
+    <span class="r">NO</span>
+    <span class="r">SOM</span>
     <span class="r">RES!</span>
-    <span class="r">RES!</span>
-    <span class="r">RES!</span>
-    <span class="r">RES!</span>
-  </div>
+  </h1>
   <div class="hero-hud">
     <div>
       <span class="hero-tag">Punk Rock · Barcelona · 2021</span>
@@ -100,7 +100,7 @@ for (const lyric of allLyrics) {
       <div class="news-item">
         <div>
           <div class="n-date">Abril 2021</div>
-          <div class="n-title">RES! debuta amb<br><em>"Les Teves Merdes"</em></div>
+          <div class="n-title">No som RES! debuta amb<br><em>"Les Teves Merdes"</em></div>
         </div>
         <div>
           <p class="n-body">Tres tios, un garatge, massa coses a dir. El primer disc arriba pocs mesos després de formar-se. Punk rock en català des de Barcelona.</p>
@@ -113,7 +113,7 @@ for (const lyric of allLyrics) {
 
 <!-- ─── PHOTO BREAK 1 ─── -->
 <div class="photo-break">
-  <div class="photo-break-bg" style="background-image: url('/img/bg.jpeg');"></div>
+  <div class="photo-break-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}');`}></div>
   <div class="photo-break-overlay"></div>
   <div class="photo-break-text">
     <div class="photo-quote">
@@ -127,31 +127,13 @@ for (const lyric of allLyrics) {
 <!-- ─── CONCERTS ─── -->
 <section id="concerts">
   <div class="section-full" style="max-width:1280px; margin:0 auto;">
-    <p class="eyebrow">Propers concerts</p>
-    <div class="concert-table">
-      <div class="concert-row">
-        <div><div class="c-day">15</div><div class="c-mon">Abr 2026</div></div>
-        <div><div class="c-venue">Sala Rocksound</div><div class="c-loc">Barcelona, Catalunya</div></div>
-        <div class="c-badge">Concert</div>
-        <a href="#" class="c-ticket">Entrades</a>
-      </div>
-      <div class="concert-row">
-        <div><div class="c-day">22</div><div class="c-mon">Mai 2026</div></div>
-        <div><div class="c-venue">Festival Contrabanda</div><div class="c-loc">Barcelona, Catalunya</div></div>
-        <div class="c-badge">Festival</div>
-        <a href="#" class="c-ticket">Entrades</a>
-      </div>
-      <div class="concert-row">
-        <div><div class="c-day">07</div><div class="c-mon">Jun 2026</div></div>
-        <div><div class="c-venue">Sala Apolo</div><div class="c-loc">Barcelona, Catalunya</div></div>
-        <div class="c-badge">Concert</div>
-        <a href="#" class="c-ticket">Entrades</a>
-      </div>
-      <div class="concert-row" style="opacity:0.4;">
-        <div><div class="c-day">11</div><div class="c-mon">Nov 2022</div></div>
-        <div><div class="c-venue">Bar Ceferino</div><div class="c-loc">Barcelona, Catalunya</div></div>
-        <div class="c-badge">Passat</div>
-        <span class="c-sold">Exhaurit</span>
+    <p class="eyebrow">Concerts</p>
+    <div class="concert-empty">
+      <div class="concert-empty-title">Ara mateix,<br><em>cap concert</em> a la vista.</div>
+      <p class="concert-empty-text">Estem tancats al local preparant soroll nou. Les properes dates apareixeran aquí — segueix-nos per no perdre-te'n cap.</p>
+      <div class="concert-empty-cta">
+        <a href="https://www.instagram.com/res_punk/" target="_blank" rel="noopener" class="btn btn-fill">Segueix a Instagram</a>
+        <a href="https://open.spotify.com/artist/5TGsKoYoodgc42udARkKA4" target="_blank" rel="noopener" class="btn btn-outline">Escolta mentrestant</a>
       </div>
     </div>
   </div>
@@ -200,8 +182,8 @@ for (const lyric of allLyrics) {
 </section>
 
 <!-- ─── PHOTO BREAK 2 ─── -->
-<div class="photo-break" style="height:50vh;">
-  <div class="photo-break-bg" style="background-image: url('/img/bg.jpeg'); background-position: center 35%;"></div>
+<div class="photo-break" style="height:32vh; min-height:220px;">
+  <div class="photo-break-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}'); background-position: center 35%;`}></div>
   <div class="photo-break-overlay" style="background: linear-gradient(to bottom, rgba(10,10,9,0.3), rgba(10,10,9,0.7));"></div>
 </div>
 
@@ -228,7 +210,7 @@ for (const lyric of allLyrics) {
                 </div>
                 <div class="lyric-body">
                   {lyric.body}
-                  <a href={`/lyrics/${lyric.id}`} class="lyric-page-link">Veure lletra completa →</a>
+                  <a href={withBase(`/lyrics/${lyric.id}`)} class="lyric-page-link">Veure lletra completa →</a>
                 </div>
               </div>
             ))}
@@ -245,15 +227,15 @@ for (const lyric of allLyrics) {
     <p class="eyebrow">Fotos &amp; Vídeos</p>
     <div class="media-photos">
       {[
-        { src: '/img/about/1.jpeg', alt: 'RES! concert' },
-        { src: '/img/about/2.jpeg', alt: 'RES! foto banda' },
-        { src: '/img/about/band.jpeg', alt: 'RES! foto banda' },
-        { src: '/img/about/4.jpg', alt: 'RES! cartell' },
-        { src: '/img/about/3.jpeg', alt: 'RES! foto' },
-        { src: '/img/bg.jpeg', alt: 'RES! foto' },
+        { src: '/img/about/1.jpeg', alt: 'No som RES! concert' },
+        { src: '/img/about/2.jpeg', alt: 'No som RES! foto banda' },
+        { src: '/img/about/band.jpeg', alt: 'No som RES! foto banda' },
+        { src: '/img/about/4.jpg', alt: 'No som RES! cartell' },
+        { src: '/img/about/3.jpeg', alt: 'No som RES! foto' },
+        { src: '/img/bg.jpeg', alt: 'No som RES! foto' },
       ].map(({ src, alt }) => (
         <div class="media-photo">
-          <img src={src} alt={alt} loading="lazy" />
+          <img src={withBase(src)} alt={alt} loading="lazy" />
         </div>
       ))}
     </div>
@@ -284,7 +266,7 @@ for (const lyric of allLyrics) {
 
 <!-- ─── ABOUT ─── -->
 <section id="about">
-  <div class="about-bg" style="background-image: url('/img/bg.jpeg');"></div>
+  <div class="about-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}');`}></div>
   <div class="about-overlay"></div>
   <div class="about-scanlines"></div>
   <div class="about-inner">
@@ -294,21 +276,21 @@ for (const lyric of allLyrics) {
       <em>Barcelona.</em>
       Massa coses<br>a dir.
     </div>
-    <p class="about-text">RES! neix el 2021 amb una missió clara: sonar fort i dir-ho tot sense filtres. Tres amics units per un amor comú al punk rock i una necessitat imperiosa d'expressar el que passa al seu voltant — en català, sense disculpes.</p>
+    <p class="about-text">No som RES! neix el 2021 amb una missió clara: sonar fort i dir-ho tot sense filtres. Tres amics units per un amor comú al punk rock i una necessitat imperiosa d'expressar el que passa al seu voltant — en català, sense disculpes.</p>
     <p class="about-text">En menys d'un any del seu naixement ja tenien el primer disc al carrer. "Les Teves Merdes" (2022) i "Sou Tots Uns Fills De Puta" (2022) marquen el to: punk rock directe, honest, en la nostra llengua, fet des de les entranyes de Barcelona.</p>
     <p class="about-text">Dos àlbums, molts concerts, cap intenció de callar.</p>
     <div class="about-members">
       <div class="member">
         <div class="member-name">Àlex</div>
-        <div class="member-role">Veu · Guitarra</div>
+        <div class="member-role">Veu · Baix</div>
       </div>
       <div class="member">
-        <div class="member-name">Enric</div>
-        <div class="member-role">Baix</div>
-      </div>
-      <div class="member">
-        <div class="member-name">Aimar</div>
+        <div class="member-name">Pau</div>
         <div class="member-role">Bateria</div>
+      </div>
+      <div class="member">
+        <div class="member-name">Nico</div>
+        <div class="member-role">Guitarra</div>
       </div>
     </div>
     <br>
@@ -319,7 +301,7 @@ for (const lyric of allLyrics) {
 <!-- ─── CONTACT ─── -->
 <section id="contact">
   <div class="contact-inner">
-    <h2 class="contact-title">Contacta<br>amb RES!</h2>
+    <h2 class="contact-title">Contacta<br>amb No som RES!</h2>
     <p class="contact-sub">Reserves de concerts, col·laboracions, premsa o simplement per dir hola.</p>
     <a href="mailto:hola@respunk.cat" class="contact-email">hola@respunk.cat</a>
   </div>

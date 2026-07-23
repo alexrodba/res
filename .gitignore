@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+
+# local tooling / editor
+.claude/
+.vscode/
+.DS_Store
+
+# env
+.env
+.env.*
+!.env.example

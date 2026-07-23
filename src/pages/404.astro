@@ -1,13 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { withBase } from '../lib/base';
 ---
 
 <Layout title="404">
-  <div class="flex flex-col items-center justify-center min-h-[60vh] text-center gap-6">
-    <h1 class="text-8xl font-bold text-red-500">404</h1>
-    <p class="text-xl text-gray-400">Aquesta pàgina no existeix.</p>
-    <a href="/" class="px-6 py-2 border border-white/30 uppercase tracking-wider text-sm hover:bg-white hover:text-black transition-colors">
-      Tornar a l'inici
-    </a>
+  <div class="page-wrap" style="min-height:60vh; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:20px;">
+    <div class="hero-stack" style="position:static; transform:none; width:auto; text-align:left;">
+      <span class="r" style="font-size:clamp(72px,14vw,140px);">4</span>
+      <span class="r" style="font-size:clamp(72px,14vw,140px);">0</span>
+      <span class="r" style="font-size:clamp(72px,14vw,140px);">4</span>
+    </div>
+    <p class="prose-content" style="max-width:420px;">Aquesta pàgina no existeix. Potser la vas somiar, o potser no és res.</p>
+    <a href={withBase('/')} class="btn btn-outline">Tornar a l'inici</a>
   </div>
 </Layout>

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { albums } from '../../data/albums';
+import { withBase } from '../../lib/base';
 
 const allLyrics = await getCollection('lyrics');
 
@@ -32,7 +33,7 @@ for (const album of albums) {
           <ul class="tracklist">
             {songs.map((lyric, j) => (
               <li>
-                <a href={`/lyrics/${lyric.id}`}>
+                <a href={withBase(`/lyrics/${lyric.id}`)}>
                   <span class="track-num">{String(j + 1).padStart(2, '0')}</span>
                   <span class="track-name">{lyric.data.title}</span>
                   <span class="track-arrow">→</span>

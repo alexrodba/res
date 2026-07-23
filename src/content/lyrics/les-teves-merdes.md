@@ -9,14 +9,14 @@ excerpt: "Només penses en les teves merdes!..."
 
 Només penses en les teves merdes!
 
-El judici per culpar,<br>
+El judici per culpar,
 la ignorància per jutjar.
 
 Només penses en les teves merdes!
 
 I ara sí que m'estàs tornant boig!
 
-Ara ja saps que si vols tornar<br>
-la porta és oberta però no m'hi trobaràs.<br>
-Ara ja saps que si vols tornar<br>
+Ara ja saps que si vols tornar
+la porta és oberta però no m'hi trobaràs.
+Ara ja saps que si vols tornar
 la porta és oberta però no m'hi trobaràs.

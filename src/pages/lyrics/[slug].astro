@@ -1,6 +1,7 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { withBase } from '../../lib/base';
 
 export async function getStaticPaths() {
   const lyrics = await getCollection('lyrics');
@@ -11,22 +12,19 @@ export async function getStaticPaths() {
 }
 
 const { lyric } = Astro.props;
-const { Content } = await render(lyric);
 ---
 
 <Layout title={lyric.data.title}>
   <div class="page-wrap">
     <p class="breadcrumb">
-      <a href="/lyrics">Lletres</a>
+      <a href={withBase('/lyrics')}>Lletres</a>
       <span class="sep">/</span>
-      <a href="/lyrics">{lyric.data.album}</a>
+      <a href={withBase('/lyrics')}>{lyric.data.album}</a>
     </p>
 
     <h1 class="page-title">{lyric.data.title}</h1>
 
-    <div class="lyric-content">
-      <Content />
-    </div>
+    <div class="lyric-content">{lyric.body}</div>
 
     <footer class="lyric-footer">
       <span>{lyric.data.album} · {lyric.data.date.getFullYear()}</span>

@@ -7,18 +7,18 @@ mixer: "Àlex Martínez"
 excerpt: "Jo no puc deixar de pensar en tu..."
 ---
 
-Jo no puc deixar de pensar en tu.<br>
+Jo no puc deixar de pensar en tu.
 Jo no vull deixar de pensar en tu.
 
-Les mans se'n van allà on no han d'anar.<br>
+Les mans se'n van allà on no han d'anar.
 Les forces se me'n porten. No ho puc aturar.
 
-I, si les parets parlessin.<br>
-Si tu i jo ho féssim.<br>
-Sóc el rei de la mà dreta.<br>
-Jo, us declaro la guerra!<br>
+I, si les parets parlessin.
+Si tu i jo ho féssim.
+Sóc el rei de la mà dreta.
+Jo, us declaro la guerra!
 
-Les nits se'm fan llargues, i<br>
-no m'aguanten.<br>
-Matins, de resignació,<br>
+Les nits se'm fan llargues, i
+no m'aguanten.
+Matins, de resignació,
 per nits de satisfacció.

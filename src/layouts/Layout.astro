@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { withBase } from '../lib/base';
 
 interface Props {
   title?: string;
@@ -10,10 +11,10 @@ interface Props {
 
 const {
   title,
-  description = 'Pàgina oficial dels RES!, punk rock de Barcelona en català.',
+  description = 'Pàgina oficial de No som RES!, punk rock de Barcelona en català.',
 } = Astro.props;
 
-const pageTitle = title ? `${title} — RES!` : 'RES! — Punk Rock Barcelona';
+const pageTitle = title ? `${title} — No som RES!` : 'No som RES! — Punk Rock Barcelona';
 ---
 
 <!doctype html>
@@ -23,13 +24,15 @@ const pageTitle = title ? `${title} — RES!` : 'RES! — Punk Rock Barcelona';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{pageTitle}</title>
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href={withBase('/favicon.ico')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   </head>
   <body>
     <Nav />
-    <slot />
+    <main>
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>

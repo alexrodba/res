@@ -7,13 +7,13 @@ mixer: "Àlex Martínez"
 excerpt: "Qui et va dir que..."
 ---
 
-Qui et va dir que<br>
+Qui et va dir que
 passat de voltes, va ser un engany la joventut.
 
-La dictatura de l'adult.<br>
+La dictatura de l'adult.
 Estàs en la merda i vas fins al cul. I vas fins al cul!
 
-No miris enrera, no miris endavant.<br>
+No miris enrera, no miris endavant.
 El futur era mentida, i l'estàs palmant.
 
 Ets un polla vella.

@@ -7,10 +7,10 @@ mixer: "Àlex Martínez"
 excerpt: "Estàs sol i ningú et vol..."
 ---
 
-Estàs sol i ningú et vol!<br>
+Estàs sol i ningú et vol!
 Ets el fracàs de la merda que et fots pel nas.
 
-Aguantant el pes del món,<br>
+Aguantant el pes del món,
 al fons de la copa estàs tot sol, tot sol.
 
 Adolf, Adolf, Adolf Hipster!

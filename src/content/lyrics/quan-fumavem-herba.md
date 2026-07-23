@@ -9,7 +9,7 @@ excerpt: "Quan fumàvem herba..."
 
 Quan fumàvem herba.
 
-Els teus cabells rossos envoltats pel fum.<br>
+Els teus cabells rossos envoltats pel fum.
 Les branques fent de braços i les fulles fent de llum.
 
 Quan fumàvem herba.
