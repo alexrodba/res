@@ -252,6 +252,51 @@ a { text-decoration: none; color: inherit; }
 .video-title { font-family: 'Anton', sans-serif; font-size: 16px; color: var(--bone); letter-spacing: 0.5px; margin-bottom: 3px; }
 .video-sub { font-size: 11px; letter-spacing: 3px; color: var(--dim-text); text-transform: uppercase; }
 
+/* ─── PREMSA ─── */
+#premsa { background: #0d0d0c; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.press-intro { margin-bottom: 48px; max-width: 620px; }
+.press-heading { font-family: 'Anton', sans-serif; font-size: clamp(32px, 5vw, 60px); line-height: 0.9; letter-spacing: -1px; color: var(--bone); margin-bottom: 20px; }
+.press-heading em { font-style: normal; color: var(--red); }
+.press-lead { font-family: var(--font-read); font-size: 16px; line-height: 1.7; color: var(--mid); }
+.press-list { border-top: 1px solid var(--line); }
+.press-item { display: grid; grid-template-columns: minmax(140px, 220px) 1fr auto auto; align-items: center; gap: 40px; padding: 28px 0; border-bottom: 1px solid var(--line); transition: padding-left 0.25s, background 0.2s; }
+.press-item.is-link { cursor: pointer; }
+.press-item.is-link:hover { padding-left: 14px; background: rgba(255,255,255,0.02); }
+.press-outlet { font-family: 'Anton', sans-serif; font-size: 22px; letter-spacing: 0.5px; color: var(--bone); }
+.press-quote { font-family: var(--font-read); font-size: 16px; line-height: 1.5; color: var(--mid); }
+.press-meta { display: flex; flex-direction: column; gap: 6px; text-align: right; white-space: nowrap; }
+.press-kind { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--red-text); }
+.press-date { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--dim-text); }
+.press-cta { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--dim-text); border: 1px solid var(--line); padding: 10px 18px; white-space: nowrap; transition: all 0.2s; }
+.press-item.is-link .press-cta { color: var(--red-text); border-color: var(--red); }
+.press-item.is-link:hover .press-cta { background: var(--red); color: #ffffff; border-color: var(--red); }
+
+/* Highlighted hero item — the standout placement at the top of Premsa */
+.press-featured { position: relative; padding: 40px 44px; margin-bottom: 12px; border: 1px solid rgba(232,0,29,0.38); background: linear-gradient(180deg, rgba(232,0,29,0.07), rgba(232,0,29,0.015)); overflow: hidden; }
+.press-featured::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--red); }
+.press-featured-badge { display: inline-block; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #ffffff; background: var(--red); padding: 5px 12px; margin-bottom: 22px; }
+.press-featured .press-feature-outlet { margin-bottom: 2px; }
+.press-featured-quote { font-family: 'Anton', sans-serif; font-size: clamp(26px, 3.8vw, 46px); line-height: 1.02; letter-spacing: -0.5px; color: var(--bone); margin: 12px 0 28px; max-width: 22ch; }
+.press-featured-foot { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.press-featured-soon { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--dim-text); border: 1px solid var(--line); padding: 12px 20px; }
+
+/* Feature card — a press clipping (scanned cutting + pull-quote) */
+.press-feature { display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: start; padding: 44px 0; border-bottom: 1px solid var(--line); }
+.press-clip { position: relative; display: block; border: 1px solid var(--line); background: var(--bone); overflow: hidden; transition: border-color 0.2s; align-self: start; }
+.press-clip img { width: 100%; height: auto; display: block; transition: transform 0.4s; }
+.press-clip:hover { border-color: var(--red); }
+.press-clip:hover img { transform: scale(1.03); }
+.press-clip-zoom { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px; text-align: center; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--bone); background: linear-gradient(transparent, rgba(10,10,9,0.9)); opacity: 0; transition: opacity 0.2s; }
+.press-clip:hover .press-clip-zoom { opacity: 1; }
+.press-feature-body { padding-top: 2px; }
+.press-feature-outlet { display: block; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--red-text); }
+.press-quote-lg { font-family: 'Anton', sans-serif; font-size: clamp(22px, 2.8vw, 34px); line-height: 1.04; letter-spacing: -0.5px; color: var(--bone); margin: 14px 0 22px; }
+.press-feature-links { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; margin-top: 26px; }
+.press-feature-links .press-cta.is-link { color: var(--red-text); border-color: var(--red); }
+.press-feature-links .press-cta.is-link:hover { background: var(--red); color: #ffffff; border-color: var(--red); }
+.press-scan-link { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--dim-text); border-bottom: 1px solid var(--line); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s; }
+.press-scan-link:hover { color: var(--bone); border-color: var(--bone); }
+
 /* ─── ABOUT ─── */
 #about { position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; }
 .about-bg { position: absolute; inset: 0; background-size: cover; background-position: center right; filter: grayscale(0.5) contrast(1.1) brightness(0.4); }
@@ -332,6 +377,15 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
   .c-venue { font-size: 16px; }
   .lyrics-grid { grid-template-columns: 1fr; }
   .lyric-row { border-right: none; }
+  .press-featured { padding: 28px 22px; }
+  .press-featured-foot { align-items: flex-start; }
+  .press-feature { grid-template-columns: 1fr; gap: 24px; }
+  .press-clip { max-width: 240px; }
+  .press-item { grid-template-columns: 1fr auto; gap: 8px 20px; align-items: start; padding: 24px 0; }
+  .press-outlet { grid-column: 1; }
+  .press-cta { grid-column: 2; grid-row: 1; align-self: start; }
+  .press-quote { grid-column: 1 / -1; grid-row: 2; }
+  .press-meta { grid-column: 1 / -1; grid-row: 3; flex-direction: row; gap: 14px; text-align: left; margin-top: 4px; }
   .media-photos { grid-template-columns: 1fr 1fr; }
   .videos-grid { grid-template-columns: 1fr; }
   .about-big { font-size: clamp(40px, 10vw, 64px); }
