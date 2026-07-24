@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import { albums } from '../data/albums';
+import { press } from '../data/press';
 import { withBase } from '../lib/base';
 
 const allLyrics = await getCollection('lyrics');
@@ -263,6 +264,96 @@ for (const lyric of allLyrics) {
     </div>
   </div>
 </section>
+
+<!-- ─── PREMSA ─── -->
+{press.length > 0 && (
+  <section id="premsa">
+    <div class="section">
+      <p class="eyebrow">Premsa</p>
+      <div class="press-intro">
+        <h2 class="press-heading">On hem <em>sortit.</em></h2>
+        <p class="press-lead">Ressenyes, entrevistes i llistes on ens han fet un lloc. Res de màrqueting: només gent que ens ha escoltat.</p>
+      </div>
+      <div class="press-list">
+        {press.map((item) => {
+          const external = item.url !== '#' && /^https?:/.test(item.url);
+
+          if (item.featured) {
+            return (
+              <article class="press-featured">
+                <span class="press-featured-badge">Destacat</span>
+                <span class="press-feature-outlet">{item.outlet}</span>
+                <p class="press-featured-quote">“{item.quote}”</p>
+                <div class="press-featured-foot">
+                  <div class="press-meta">
+                    <span class="press-kind">{item.kind}</span>
+                    {item.detail && <span class="press-date">{item.detail}</span>}
+                    {item.date && <span class="press-date">{item.date}</span>}
+                  </div>
+                  {external ? (
+                    <a class="btn btn-fill" href={item.url} target="_blank" rel="noopener">Veure a 3Cat →</a>
+                  ) : (
+                    <span class="press-featured-soon">Enllaç aviat</span>
+                  )}
+                </div>
+              </article>
+            );
+          }
+
+          if (item.image) {
+            const full = item.scan ?? item.image;
+            return (
+              <article class="press-feature">
+                <a
+                  class="press-clip"
+                  href={withBase(full)}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`Veure el retall complet de ${item.outlet}`}
+                >
+                  <img src={withBase(item.image)} alt={`Retall de premsa de ${item.outlet}: ${item.quote}`} loading="lazy" />
+                  <span class="press-clip-zoom">Ampliar</span>
+                </a>
+                <div class="press-feature-body">
+                  <span class="press-feature-outlet">{item.outlet}</span>
+                  <p class="press-quote-lg">“{item.quote}”</p>
+                  <div class="press-meta">
+                    <span class="press-kind">{item.kind}</span>
+                    <span class="press-date">{item.date}</span>
+                  </div>
+                  <div class="press-feature-links">
+                    {external && (
+                      <a class="press-cta is-link" href={item.url} target="_blank" rel="noopener">Llegir online →</a>
+                    )}
+                    {item.scan && (
+                      <a class="press-scan-link" href={withBase(item.scan)} target="_blank" rel="noopener">Veure pàgina sencera →</a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            );
+          }
+
+          const Tag = external ? 'a' : 'div';
+          return (
+            <Tag
+              class:list={['press-item', { 'is-link': external }]}
+              {...(external ? { href: item.url, target: '_blank', rel: 'noopener' } : {})}
+            >
+              <span class="press-outlet">{item.outlet}</span>
+              <span class="press-quote">{item.quote}</span>
+              <span class="press-meta">
+                <span class="press-kind">{item.kind}</span>
+                <span class="press-date">{item.date}</span>
+              </span>
+              <span class="press-cta">{external ? 'Llegir →' : 'Aviat'}</span>
+            </Tag>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+)}
 
 <!-- ─── ABOUT ─── -->
 <section id="about">
