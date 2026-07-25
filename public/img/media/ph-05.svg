@@ -1,0 +1,34 @@
+<svg width="600" height="600" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SOROLL — foto pendent">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#171613"/>
+      <stop offset="1" stop-color="#100f0d"/>
+    </linearGradient>
+    <pattern id="scan" width="1" height="4" patternUnits="userSpaceOnUse">
+      <rect width="1" height="4" fill="none"/>
+      <rect width="1" height="1" y="3" fill="rgba(0,0,0,0.35)"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <rect width="600" height="600" fill="url(#scan)"/>
+  <!-- faint oversized wordmark, bottom-anchored -->
+  <text x="300" y="562" text-anchor="middle" font-family="Arial Black, Impact, sans-serif"
+    font-weight="900" font-size="150" letter-spacing="-6" fill="rgba(240,236,226,0.05)">RES!</text>
+  <!-- inner hairline frame -->
+  <rect x="16" y="16" width="568" height="568" fill="none" stroke="rgba(240,236,226,0.14)" stroke-width="1"/>
+  <!-- viewfinder corner brackets -->
+  <path d="M 40 74 L 40 40 L 74 40" fill="none" stroke="rgba(240,236,226,0.32)" stroke-width="3"/>
+  <path d="M 560 74 L 560 40 L 526 40" fill="none" stroke="rgba(240,236,226,0.32)" stroke-width="3"/>
+  <path d="M 40 526 L 40 560 L 74 560" fill="none" stroke="rgba(240,236,226,0.32)" stroke-width="3"/>
+  <path d="M 560 526 L 560 560 L 526 560" fill="none" stroke="rgba(240,236,226,0.32)" stroke-width="3"/>
+  <!-- REC dot + label -->
+  <circle cx="266" cy="291" r="7" fill="#e8001d"/>
+  <text x="286" y="298" font-family="'Space Mono', ui-monospace, monospace" font-size="20"
+    letter-spacing="5" fill="#f0ece2">FOTO 05</text>
+  <!-- caption -->
+  <text x="300" y="344" text-anchor="middle" font-family="Arial Black, Impact, sans-serif"
+    font-weight="900" font-size="34" letter-spacing="2" fill="rgba(240,236,226,0.72)">SOROLL</text>
+  <!-- status -->
+  <text x="300" y="378" text-anchor="middle" font-family="'Space Mono', ui-monospace, monospace"
+    font-size="13" letter-spacing="6" fill="#e8001d">AVIAT</text>
+</svg>

@@ -123,17 +123,12 @@ const recentPress = press.slice(0, 3);
 <section>
   <div class="section">
     <p class="eyebrow">Fotos &amp; Vídeos</p>
+    {/* No band photos yet — decorative on-brand placeholder frames until we
+        have real ones. alt="" so screen readers skip these empty slots. */}
     <div class="media-photos">
-      {[
-        { src: '/img/about/1.jpeg', alt: 'No som RES! concert' },
-        { src: '/img/about/2.jpeg', alt: 'No som RES! foto banda' },
-        { src: '/img/about/band.jpeg', alt: 'No som RES! foto banda' },
-        { src: '/img/about/4.jpg', alt: 'No som RES! cartell' },
-        { src: '/img/about/3.jpeg', alt: 'No som RES! foto' },
-        { src: '/img/bg.jpeg', alt: 'No som RES! foto' },
-      ].map(({ src, alt }) => (
-        <div class="media-photo">
-          <img src={withBase(src)} alt={alt} loading="lazy" />
+      {['ph-01', 'ph-02', 'ph-03', 'ph-04', 'ph-05', 'ph-06'].map((name) => (
+        <div class="media-photo media-photo-ph">
+          <img src={withBase(`/img/media/${name}.svg`)} alt="" loading="lazy" />
         </div>
       ))}
     </div>
