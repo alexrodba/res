@@ -1,0 +1,95 @@
+---
+import type { PressFeature } from '../data/press';
+import { withBase } from '../lib/base';
+
+interface Props {
+  items: PressFeature[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="press-list">
+  {items.map((item) => {
+    const external = item.url !== '#' && /^https?:/.test(item.url);
+
+    if (item.featured) {
+      return (
+        <article class:list={['press-featured', { 'has-logo': item.logo }]}>
+          <div class="press-featured-main">
+            <span class="press-featured-badge">Destacat</span>
+            <span class="press-feature-outlet">{item.outlet}</span>
+            <p class="press-featured-quote">“{item.quote}”</p>
+            <div class="press-featured-foot">
+              <div class="press-meta">
+                <span class="press-kind">{item.kind}</span>
+                {item.detail && <span class="press-date">{item.detail}</span>}
+                {item.date && <span class="press-date">{item.date}</span>}
+              </div>
+              {external ? (
+                <a class="btn btn-fill" href={item.url} target="_blank" rel="noopener">Veure a 3Cat →</a>
+              ) : (
+                <span class="press-featured-soon">Enllaç aviat</span>
+              )}
+            </div>
+          </div>
+          {item.logo && (
+            <div class="press-featured-logo">
+              <img src={withBase(item.logo)} alt={`Logotip de ${item.outlet}`} loading="lazy" />
+            </div>
+          )}
+        </article>
+      );
+    }
+
+    if (item.image) {
+      const full = item.scan ?? item.image;
+      return (
+        <article class="press-feature">
+          <a
+            class="press-clip"
+            href={withBase(full)}
+            target="_blank"
+            rel="noopener"
+            aria-label={`Veure el retall complet de ${item.outlet}`}
+          >
+            <img src={withBase(item.image)} alt={`Retall de premsa de ${item.outlet}: ${item.quote}`} loading="lazy" />
+            <span class="press-clip-zoom">Ampliar</span>
+          </a>
+          <div class="press-feature-body">
+            <span class="press-feature-outlet">{item.outlet}</span>
+            <p class="press-quote-lg">“{item.quote}”</p>
+            <div class="press-meta">
+              <span class="press-kind">{item.kind}</span>
+              <span class="press-date">{item.date}</span>
+            </div>
+            <div class="press-feature-links">
+              {external && (
+                <a class="press-cta is-link" href={item.url} target="_blank" rel="noopener">Llegir online →</a>
+              )}
+              {item.scan && (
+                <a class="press-scan-link" href={withBase(item.scan)} target="_blank" rel="noopener">Veure pàgina sencera →</a>
+              )}
+            </div>
+          </div>
+        </article>
+      );
+    }
+
+    const Tag = external ? 'a' : 'div';
+    return (
+      <Tag
+        class:list={['press-item', { 'is-link': external }]}
+        {...(external ? { href: item.url, target: '_blank', rel: 'noopener' } : {})}
+      >
+        <span class="press-outlet">{item.outlet}</span>
+        <span class="press-quote">{item.quote}</span>
+        <span class="press-meta">
+          <span class="press-kind">{item.kind}</span>
+          <span class="press-date">{item.date}</span>
+        </span>
+        <span class="press-cta">{external ? 'Llegir →' : 'Aviat'}</span>
+      </Tag>
+    );
+  })}
+</div>

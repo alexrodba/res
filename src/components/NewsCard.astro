@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../lib/base';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+
+const MONTHS = [
+  'Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny',
+  'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre',
+];
+// Dates are authored as YYYY-MM-DD (UTC midnight) — read them in UTC so the
+// displayed month/year matches what was written, regardless of build timezone.
+const d = post.data.date;
+const dateLabel = `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+
+const external = !!post.data.linkUrl;
+const href = external ? post.data.linkUrl! : withBase(`/posts/${post.id}`);
+const label = post.data.linkLabel ?? 'Llegir la història';
+---
+
+<div class="news-item">
+  <div>
+    <div class="n-date">{dateLabel}</div>
+    <div class="n-title">{post.data.title}</div>
+  </div>
+  <div>
+    {post.data.excerpt && <p class="n-body">{post.data.excerpt}</p>}
+    <a
+      href={href}
+      class="n-link"
+      {...(external ? { target: '_blank', rel: 'noopener' } : {})}
+    >{label}</a>
+  </div>
+</div>

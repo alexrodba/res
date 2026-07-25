@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PressList from '../components/PressList.astro';
+import { press } from '../data/press';
+---
+
+<Layout title="Premsa">
+  <div class="page-wrap">
+    <h1 class="page-title">Premsa</h1>
+    <div class="press-intro">
+      <h2 class="press-heading">On hem <em>sortit.</em></h2>
+      <p class="press-lead">Ressenyes, entrevistes i llistes on ens han fet un lloc. Res de màrqueting: només gent que ens ha escoltat.</p>
+    </div>
+
+    {press.length === 0 ? (
+      <p style="color: var(--dim-text); font-size: 13px; letter-spacing: 3px; text-transform: uppercase;">Encara no ens ha vist ningú.</p>
+    ) : (
+      <PressList items={press} />
+    )}
+  </div>
+</Layout>

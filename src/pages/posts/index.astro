@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { withBase } from '../../lib/base';
+import NewsCard from '../../components/NewsCard.astro';
 
 const posts = await getCollection('posts');
 posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -12,20 +12,11 @@ posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
     <h1 class="page-title">Notícies</h1>
 
     {posts.length === 0 ? (
-      <p style="color: var(--dim); font-size: 13px; letter-spacing: 3px; text-transform: uppercase;">No hi ha notícies encara.</p>
+      <p style="color: var(--dim-text); font-size: 13px; letter-spacing: 3px; text-transform: uppercase;">No hi ha notícies encara.</p>
     ) : (
-      <ul class="post-list">
-        {posts.map((post) => (
-          <li>
-            <a href={withBase(`/posts/${post.id}`)}>
-              <span class="post-title">{post.data.title}</span>
-              <span class="post-date">
-                {post.data.date.toLocaleDateString('ca-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <div class="news-grid">
+        {posts.map((post) => <NewsCard post={post} />)}
+      </div>
     )}
   </div>
 </Layout>

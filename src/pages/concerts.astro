@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ConcertList from '../components/ConcertList.astro';
+import { upcomingConcerts, pastConcerts } from '../data/concerts';
+
+const upcoming = upcomingConcerts();
+const past = pastConcerts();
+const hasAny = upcoming.length > 0 || past.length > 0;
+---
+
+<Layout title="Concerts">
+  <div class="page-wrap">
+    <h1 class="page-title">Concerts</h1>
+
+    {!hasAny && (
+      <div class="concert-empty">
+        <div class="concert-empty-title">Ara mateix,<br><em>cap concert</em> a la vista.</div>
+        <p class="concert-empty-text">Estem tancats a les nostres respectives cases gestionant vides complicades. Les properes dates apareixeran aquí algun dia. Segueix-nos per no perdre-te'n cap.</p>
+        <div class="concert-empty-cta">
+          <a href="https://www.instagram.com/res_punk/" target="_blank" rel="noopener" class="btn btn-fill">Segueix a Instagram</a>
+          <a href="https://open.spotify.com/artist/5TGsKoYoodgc42udARkKA4?si=xCq32A21QwKl8XnxhPct8w" target="_blank" rel="noopener" class="btn btn-outline">Escolta mentrestant</a>
+        </div>
+      </div>
+    )}
+
+    {upcoming.length > 0 && (
+      <section style="margin-bottom: 64px;">
+        <p class="eyebrow">Propers concerts</p>
+        <ConcertList concerts={upcoming} variant="upcoming" />
+      </section>
+    )}
+
+    {past.length > 0 && (
+      <section>
+        <p class="eyebrow">Concerts passats</p>
+        <ConcertList concerts={past} variant="past" />
+      </section>
+    )}
+  </div>
+</Layout>

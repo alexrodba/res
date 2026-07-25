@@ -1,5 +1,21 @@
 ---
 import { withBase } from '../lib/base';
+
+const links = [
+  { href: '/posts', label: 'Notícies' },
+  { href: '/concerts', label: 'Concerts' },
+  { href: '/music', label: 'Música' },
+  { href: '/lyrics', label: 'Lletres' },
+  { href: '/premsa', label: 'Premsa' },
+  { href: '/about', label: 'Qui som' },
+];
+
+// Highlight the section the current page belongs to (incl. its detail pages).
+const path = Astro.url.pathname.replace(/\/$/, '');
+const isActive = (href: string) => {
+  const full = withBase(href).replace(/\/$/, '');
+  return path === full || path.startsWith(full + '/');
+};
 ---
 
 <nav id="nav" aria-label="Principal">
@@ -8,13 +24,11 @@ import { withBase } from '../lib/base';
     <span></span><span></span><span></span>
   </button>
   <ul class="nav-links" id="nav-menu">
-    <li><a href={withBase('/#news')}>Notícies</a></li>
-    <li><a href={withBase('/#concerts')}>Concerts</a></li>
-    <li><a href={withBase('/#music')}>Música</a></li>
-    <li><a href={withBase('/#lyrics')}>Lletres</a></li>
-    <li><a href={withBase('/#media')}>Fotos</a></li>
-    <li><a href={withBase('/#premsa')}>Premsa</a></li>
-    <li><a href={withBase('/#about')}>Qui som</a></li>
+    {links.map((link) => (
+      <li>
+        <a href={withBase(link.href)} aria-current={isActive(link.href) ? 'page' : undefined}>{link.label}</a>
+      </li>
+    ))}
   </ul>
 </nav>
 
