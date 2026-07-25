@@ -280,22 +280,29 @@ for (const lyric of allLyrics) {
 
           if (item.featured) {
             return (
-              <article class="press-featured">
-                <span class="press-featured-badge">Destacat</span>
-                <span class="press-feature-outlet">{item.outlet}</span>
-                <p class="press-featured-quote">“{item.quote}”</p>
-                <div class="press-featured-foot">
-                  <div class="press-meta">
-                    <span class="press-kind">{item.kind}</span>
-                    {item.detail && <span class="press-date">{item.detail}</span>}
-                    {item.date && <span class="press-date">{item.date}</span>}
+              <article class:list={['press-featured', { 'has-logo': item.logo }]}>
+                <div class="press-featured-main">
+                  <span class="press-featured-badge">Destacat</span>
+                  <span class="press-feature-outlet">{item.outlet}</span>
+                  <p class="press-featured-quote">“{item.quote}”</p>
+                  <div class="press-featured-foot">
+                    <div class="press-meta">
+                      <span class="press-kind">{item.kind}</span>
+                      {item.detail && <span class="press-date">{item.detail}</span>}
+                      {item.date && <span class="press-date">{item.date}</span>}
+                    </div>
+                    {external ? (
+                      <a class="btn btn-fill" href={item.url} target="_blank" rel="noopener">Veure a 3Cat →</a>
+                    ) : (
+                      <span class="press-featured-soon">Enllaç aviat</span>
+                    )}
                   </div>
-                  {external ? (
-                    <a class="btn btn-fill" href={item.url} target="_blank" rel="noopener">Veure a 3Cat →</a>
-                  ) : (
-                    <span class="press-featured-soon">Enllaç aviat</span>
-                  )}
                 </div>
+                {item.logo && (
+                  <div class="press-featured-logo">
+                    <img src={withBase(item.logo)} alt={`Logotip de ${item.outlet}`} loading="lazy" />
+                  </div>
+                )}
               </article>
             );
           }

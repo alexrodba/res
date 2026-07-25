@@ -13,6 +13,8 @@ export interface PressFeature {
   detail?: string;
   /** Marks the hero item — rendered as a highlighted banner at the top of the section. */
   featured?: boolean;
+  /** Optional outlet logo shown beside a featured item. Path under /public. */
+  logo?: string;
   /** Optional cropped press clipping (the "our review only" scan). Renders the item as a feature card. Path under /public. */
   image?: string;
   /** Optional full-page scan, opened when the clipping is clicked. Path under /public. */
@@ -30,6 +32,7 @@ export const press: PressFeature[] = [
     detail: 'Minut 3:31 · T8·C2',
     url: 'https://www.3cat.cat/3cat/t8xc2-el-millor-restaurant-de-km0-de-les-muntanyes-de-prades/video/6294443/',
     featured: true,
+    logo: '/img/premsa/jdc.jpg',
   },
   {
     outlet: 'El 9 Nou · El 9 Magazín',
