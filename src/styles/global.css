@@ -279,6 +279,10 @@ a { text-decoration: none; color: inherit; }
 .press-featured-quote { font-family: 'Anton', sans-serif; font-size: clamp(26px, 3.8vw, 46px); line-height: 1.02; letter-spacing: -0.5px; color: var(--bone); margin: 12px 0 28px; max-width: 22ch; }
 .press-featured-foot { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 .press-featured-soon { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--dim-text); border: 1px solid var(--line); padding: 12px 20px; }
+.press-featured.has-logo { display: grid; grid-template-columns: 1fr 260px; gap: 44px; align-items: center; }
+.press-featured-main { min-width: 0; }
+.press-featured-logo { border: 1px solid var(--line); overflow: hidden; align-self: center; }
+.press-featured-logo img { width: 100%; height: auto; display: block; }
 
 /* Feature card — a press clipping (scanned cutting + pull-quote) */
 .press-feature { display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: start; padding: 44px 0; border-bottom: 1px solid var(--line); }
@@ -378,6 +382,8 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
   .lyrics-grid { grid-template-columns: 1fr; }
   .lyric-row { border-right: none; }
   .press-featured { padding: 28px 22px; }
+  .press-featured.has-logo { grid-template-columns: 1fr; gap: 24px; }
+  .press-featured-logo { max-width: 300px; }
   .press-featured-foot { align-items: flex-start; }
   .press-feature { grid-template-columns: 1fr; gap: 24px; }
   .press-clip { max-width: 240px; }
