@@ -1,6 +1,8 @@
 ---
 title: "No som RES! — la refundació"
 date: 2026-07-23
+excerpt: "Anunciem una refundació del grup, amb canvi d'integrants, d'identitat i... d'estil?"
+linkLabel: "Llegir la història"
 ---
 
 RES! ha mort! Llarga vida a RES! 

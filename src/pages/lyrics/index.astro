@@ -6,6 +6,7 @@ import { withBase } from '../../lib/base';
 
 const allLyrics = await getCollection('lyrics');
 
+// Group and sort lyrics by album, using albums.ts track order
 const byAlbum = new Map<string, typeof allLyrics>();
 for (const album of albums) {
   const songs = allLyrics.filter((l) => l.data.album === album.name);
@@ -22,27 +23,38 @@ for (const album of albums) {
   <div class="page-wrap">
     <h1 class="page-title">Lletres</h1>
 
-    {albums.map((album, i) => {
+    {albums.map((album, ai) => {
       const songs = byAlbum.get(album.name) ?? [];
       return (
-        <div class="album-section" style={i > 0 ? 'margin-top:60px;' : ''}>
-          <div class="album-section-header">
-            <span class="album-section-title">{album.name}</span>
-            <span class="album-section-year">{album.year}</span>
+        <>
+          <div class="lyrics-album-header" style={ai > 0 ? 'margin-top:60px;' : ''}>
+            <span class="lyrics-album-title">{album.name}</span>
+            <span class="lyrics-album-year">{album.year}</span>
           </div>
-          <ul class="tracklist">
+          <div class="lyrics-grid">
             {songs.map((lyric, j) => (
-              <li>
-                <a href={withBase(`/lyrics/${lyric.id}`)}>
-                  <span class="track-num">{String(j + 1).padStart(2, '0')}</span>
-                  <span class="track-name">{lyric.data.title}</span>
-                  <span class="track-arrow">→</span>
-                </a>
-              </li>
+              <div class="lyric-row" data-lyric-toggle>
+                <div class="lyric-header">
+                  <span class="lyric-num">{String(j + 1).padStart(2, '0')}</span>
+                  <span class="lyric-title">{lyric.data.title}</span>
+                  <span class="lyric-plus">+</span>
+                </div>
+                <div class="lyric-body">
+                  {lyric.body}
+                  <a href={withBase(`/lyrics/${lyric.id}`)} class="lyric-page-link">Veure lletra completa →</a>
+                </div>
+              </div>
             ))}
-          </ul>
-        </div>
+          </div>
+        </>
       );
     })}
   </div>
 </Layout>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const row = (e.target as Element).closest('[data-lyric-toggle]');
+    if (row) row.classList.toggle('open');
+  });
+</script>

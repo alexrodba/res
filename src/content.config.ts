@@ -18,6 +18,13 @@ const posts = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
+    // Short body shown on the news card. Falls back to nothing if omitted.
+    excerpt: z.string().optional(),
+    // Card link label. Defaults to "Llegir la història" when opening the detail page.
+    linkLabel: z.string().optional(),
+    // Optional external link (e.g. Spotify). When set, the card links out instead
+    // of opening the /posts/[id] detail page.
+    linkUrl: z.string().optional(),
   }),
 });
 

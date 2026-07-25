@@ -1,0 +1,46 @@
+---
+import type { Concert } from '../data/concerts';
+
+interface Props {
+  concerts: Concert[];
+  variant?: 'upcoming' | 'past';
+}
+
+const { concerts, variant = 'upcoming' } = Astro.props;
+
+const MONTHS = ['Gen', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Des'];
+// Concert dates are authored as YYYY-MM-DD (UTC midnight) — read in UTC so the
+// displayed day/month matches what was written, regardless of build timezone.
+function parts(dateStr: string) {
+  const d = new Date(dateStr);
+  return { day: d.getUTCDate(), mon: MONTHS[d.getUTCMonth()], year: d.getUTCFullYear() };
+}
+---
+
+<div class="concert-table">
+  {concerts.map((c) => {
+    const { day, mon, year } = parts(c.date);
+    return (
+      <div class="concert-row">
+        <div>
+          <div class="c-day">{day}</div>
+          <div class="c-mon">{mon} {year}</div>
+        </div>
+        <div>
+          <div class="c-venue">{c.venue}</div>
+          <div class="c-loc">{c.city}</div>
+        </div>
+        <span class="c-badge">{variant === 'past' ? 'Passat' : 'Concert'}</span>
+        {variant === 'past' ? (
+          <div class="c-links">
+            {c.setlistUrl && <a class="c-link" href={c.setlistUrl} target="_blank" rel="noopener">Setlist</a>}
+            {c.photosUrl && <a class="c-link" href={c.photosUrl} target="_blank" rel="noopener">Fotos</a>}
+            {c.videoUrl && <a class="c-link" href={c.videoUrl} target="_blank" rel="noopener">Vídeo</a>}
+          </div>
+        ) : (
+          c.ticketsUrl && <a class="c-ticket" href={c.ticketsUrl} target="_blank" rel="noopener">Entrades</a>
+        )}
+      </div>
+    );
+  })}
+</div>

@@ -1,31 +1,27 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import { albums } from '../data/albums';
+import NewsCard from '../components/NewsCard.astro';
+import ConcertList from '../components/ConcertList.astro';
+import PressList from '../components/PressList.astro';
+import Contact from '../components/Contact.astro';
 import { press } from '../data/press';
+import { upcomingConcerts, pastConcerts } from '../data/concerts';
 import { withBase } from '../lib/base';
 
-const allLyrics = await getCollection('lyrics');
+// Notícies — 3 most recent posts
+const allPosts = await getCollection('posts');
+allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const recentPosts = allPosts.slice(0, 3);
 
-// Group and sort lyrics by album, using albums.ts track order
-const byAlbum = new Map<string, typeof allLyrics>();
-for (const album of albums) {
-  const songs = allLyrics.filter((l) => l.data.album === album.name);
-  songs.sort((a, b) => {
-    const ai = album.songs.indexOf(a.data.title);
-    const bi = album.songs.indexOf(b.data.title);
-    return ai - bi;
-  });
-  byAlbum.set(album.name, songs);
-}
+// Concerts — show up to 3 upcoming; only fall back to past when nothing is planned
+const upcoming = upcomingConcerts();
+const past = pastConcerts();
+const homepageConcerts = upcoming.length ? upcoming.slice(0, 3) : past.slice(0, 3);
+const homepageConcertVariant = upcoming.length ? 'upcoming' : 'past';
 
-// Pre-render lyric content
-const renderedLyrics = new Map<string, string>();
-for (const lyric of allLyrics) {
-  const { Content } = await render(lyric);
-  // We'll pass the id for linking, body content for accordion
-  renderedLyrics.set(lyric.id, lyric.body);
-}
+// Premsa — 3 most recent features
+const recentPress = press.slice(0, 3);
 ---
 
 <Layout>
@@ -46,7 +42,7 @@ for (const lyric of allLyrics) {
     </div>
     <div class="hero-ctas">
       <a href="https://open.spotify.com/artist/5TGsKoYoodgc42udARkKA4" target="_blank" rel="noopener" class="btn btn-fill">Escolta ara</a>
-      <a href="#concerts" class="btn btn-outline">Concerts</a>
+      <a href={withBase('/concerts')} class="btn btn-outline">Concerts</a>
     </div>
   </div>
   <div class="scroll-hint">
@@ -78,36 +74,10 @@ for (const lyric of allLyrics) {
   <div class="section">
     <p class="eyebrow">Notícies</p>
     <div class="news-grid">
-      <div class="news-item">
-        <div>
-          <div class="n-date">Juliol 2026</div>
-          <div class="n-title">Una banda<br><em>nova.</em></div>
-        </div>
-        <div>
-          <p class="n-body">Anunciem una refundació del grup, amb canvi d'integrants, d'identitat i... d'estil?</p>
-          <a href={withBase('/posts/refundacio')} class="n-link">Llegir la història</a>
-        </div>
-      </div>
-      <div class="news-item">
-        <div>
-          <div class="n-date">Juliol 2023</div>
-          <div class="n-title">Segon àlbum<br><em>disponible.</em></div>
-        </div>
-        <div>
-          <p class="n-body">"Les teves merdes" ja és arribat! Vuit cançons de merda acumulada en format sonor. Disponible a Spotify i Bandcamp des del juliol del 2023.</p>
-          <a href="https://open.spotify.com/album/6fEkUKfEgqIdEo3IIYck5m?si=VXLT6ZdrS2KbJeuONtNF0g" target="_blank" rel="noopener" class="n-link">Escolta'l a Spotify</a>
-        </div>
-      </div>
-      <div class="news-item">
-        <div>
-          <div class="n-date">Abril 2022</div>
-          <div class="n-title">RES! debuta amb<br><em>"Sou tots uns fills de puta"</em></div>
-        </div>
-        <div>
-          <p class="n-body">Tres tios, poca feina, massa coses a dir. El primer disc arriba pocs mesos després de formar-se. Punk rock en català des d'un soterrani de Barcelona.</p>
-          <a href="https://open.spotify.com/album/6FgksiDsON5MeHsmLWSB5D?si=YeCqdi7wRaG3siq4wL0CDQ" target="_blank" rel="noopener" class="n-link">Escolta'l a Spotify</a>
-        </div>
-      </div>
+      {recentPosts.map((post) => <NewsCard post={post} />)}
+    </div>
+    <div style="margin-top:48px;">
+      <a href={withBase('/posts')} class="btn btn-outline">Totes les notícies →</a>
     </div>
   </div>
 </section>
@@ -129,100 +99,27 @@ for (const lyric of allLyrics) {
 <section id="concerts">
   <div class="section-full" style="max-width:1280px; margin:0 auto;">
     <p class="eyebrow">Concerts</p>
-    <div class="concert-empty">
-      <div class="concert-empty-title">Ara mateix,<br><em>cap concert</em> a la vista.</div>
-      <p class="concert-empty-text">Estem tancats a les nostres respectives cases gestionant vides complicades. Les properes dates apareixeran aquí algun dia. Segueix-nos per no perdre-te'n cap.</p>
-      <div class="concert-empty-cta">
-        <a href="https://www.instagram.com/res_punk/" target="_blank" rel="noopener" class="btn btn-fill">Segueix a Instagram</a>
-        <a href="https://open.spotify.com/artist/5TGsKoYoodgc42udARkKA4?si=xCq32A21QwKl8XnxhPct8w" target="_blank" rel="noopener" class="btn btn-outline">Escolta mentrestant</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── MUSIC ─── -->
-<section id="music">
-  <div class="section">
-    <p class="eyebrow">Discografia</p>
-    <div class="albums-grid">
-      {albums.map((album, i) => (
-        <div class="album-card">
-          <div class="album-cover">
-            <div class={`album-art album-art-${i + 1}`}>
-              <div class="album-logo">
-                <span class="r">RES!</span>
-                <span class="r">RES!</span>
-                <span class="r">RES!</span>
-                <span class="r">RES!</span>
-              </div>
-              <span class="album-sub">{album.name}</span>
-            </div>
-            <div class="album-hover">
-              <div class="album-meta">
-                <div class="a-yr">{album.year} · {i === 0 ? 'Primer àlbum' : 'Segon àlbum'}</div>
-                <div class="a-ttl">{album.name}</div>
-                <div class="a-lnks">
-                  <a href={`https://open.spotify.com/album/${album.spotifyId}`} target="_blank" rel="noopener" class="a-lnk">Spotify</a>
-                  <a href="https://resbcn.bandcamp.com" target="_blank" rel="noopener" class="a-lnk">Bandcamp</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="album-info">
-            <span class="a-yr">{album.year}</span>
-            <span class="a-ttl">{album.name}</span>
-            <div class="a-lnks">
-              <a href={`https://open.spotify.com/album/${album.spotifyId}`} target="_blank" rel="noopener" class="a-lnk">Spotify</a>
-              <a href="https://resbcn.bandcamp.com" target="_blank" rel="noopener" class="a-lnk">Bandcamp</a>
-            </div>
-          </div>
+    {homepageConcerts.length > 0 ? (
+      <>
+        <ConcertList concerts={homepageConcerts} variant={homepageConcertVariant} />
+        <div style="margin-top:40px;">
+          <a href={withBase('/concerts')} class="btn btn-outline">Tots els concerts →</a>
         </div>
-      ))}
-    </div>
+      </>
+    ) : (
+      <div class="concert-empty">
+        <div class="concert-empty-title">Ara mateix,<br><em>cap concert</em> a la vista.</div>
+        <p class="concert-empty-text">Estem tancats a les nostres respectives cases gestionant vides complicades. Les properes dates apareixeran aquí algun dia. Segueix-nos per no perdre-te'n cap.</p>
+        <div class="concert-empty-cta">
+          <a href="https://www.instagram.com/res_punk/" target="_blank" rel="noopener" class="btn btn-fill">Segueix a Instagram</a>
+          <a href="https://open.spotify.com/artist/5TGsKoYoodgc42udARkKA4?si=xCq32A21QwKl8XnxhPct8w" target="_blank" rel="noopener" class="btn btn-outline">Escolta mentrestant</a>
+        </div>
+      </div>
+    )}
   </div>
 </section>
 
-<!-- ─── PHOTO BREAK 2 ─── -->
-<div class="photo-break" style="height:32vh; min-height:220px;">
-  <div class="photo-break-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}'); background-position: center 35%;`}></div>
-  <div class="photo-break-overlay" style="background: linear-gradient(to bottom, rgba(10,10,9,0.3), rgba(10,10,9,0.7));"></div>
-</div>
-
-<!-- ─── LYRICS ─── -->
-<section id="lyrics">
-  <div class="section-full" style="max-width:1280px; margin:0 auto;">
-    <p class="eyebrow">Lletres</p>
-
-    {albums.map((album, ai) => {
-      const songs = byAlbum.get(album.name) ?? [];
-      return (
-        <>
-          <div class="lyrics-album-header" style={ai > 0 ? 'margin-top:60px;' : ''}>
-            <span class="lyrics-album-title">{album.name}</span>
-            <span class="lyrics-album-year">{album.year}</span>
-          </div>
-          <div class="lyrics-grid">
-            {songs.map((lyric, j) => (
-              <div class="lyric-row" data-lyric-toggle>
-                <div class="lyric-header">
-                  <span class="lyric-num">{String(j + 1).padStart(2, '0')}</span>
-                  <span class="lyric-title">{lyric.data.title}</span>
-                  <span class="lyric-plus">+</span>
-                </div>
-                <div class="lyric-body">
-                  {lyric.body}
-                  <a href={withBase(`/lyrics/${lyric.id}`)} class="lyric-page-link">Veure lletra completa →</a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </>
-      );
-    })}
-  </div>
-</section>
-
-<!-- ─── MEDIA ─── -->
+<!-- ─── MEDIA (Fotos & Vídeos) ─── -->
 <section id="media">
   <div class="section">
     <p class="eyebrow">Fotos &amp; Vídeos</p>
@@ -265,8 +162,14 @@ for (const lyric of allLyrics) {
   </div>
 </section>
 
+<!-- ─── PHOTO BREAK 2 ─── -->
+<div class="photo-break" style="height:32vh; min-height:220px;">
+  <div class="photo-break-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}'); background-position: center 35%;`}></div>
+  <div class="photo-break-overlay" style="background: linear-gradient(to bottom, rgba(10,10,9,0.3), rgba(10,10,9,0.7));"></div>
+</div>
+
 <!-- ─── PREMSA ─── -->
-{press.length > 0 && (
+{recentPress.length > 0 && (
   <section id="premsa">
     <div class="section">
       <p class="eyebrow">Premsa</p>
@@ -274,141 +177,14 @@ for (const lyric of allLyrics) {
         <h2 class="press-heading">On hem <em>sortit.</em></h2>
         <p class="press-lead">Ressenyes, entrevistes i llistes on ens han fet un lloc. Res de màrqueting: només gent que ens ha escoltat.</p>
       </div>
-      <div class="press-list">
-        {press.map((item) => {
-          const external = item.url !== '#' && /^https?:/.test(item.url);
-
-          if (item.featured) {
-            return (
-              <article class:list={['press-featured', { 'has-logo': item.logo }]}>
-                <div class="press-featured-main">
-                  <span class="press-featured-badge">Destacat</span>
-                  <span class="press-feature-outlet">{item.outlet}</span>
-                  <p class="press-featured-quote">“{item.quote}”</p>
-                  <div class="press-featured-foot">
-                    <div class="press-meta">
-                      <span class="press-kind">{item.kind}</span>
-                      {item.detail && <span class="press-date">{item.detail}</span>}
-                      {item.date && <span class="press-date">{item.date}</span>}
-                    </div>
-                    {external ? (
-                      <a class="btn btn-fill" href={item.url} target="_blank" rel="noopener">Veure a 3Cat →</a>
-                    ) : (
-                      <span class="press-featured-soon">Enllaç aviat</span>
-                    )}
-                  </div>
-                </div>
-                {item.logo && (
-                  <div class="press-featured-logo">
-                    <img src={withBase(item.logo)} alt={`Logotip de ${item.outlet}`} loading="lazy" />
-                  </div>
-                )}
-              </article>
-            );
-          }
-
-          if (item.image) {
-            const full = item.scan ?? item.image;
-            return (
-              <article class="press-feature">
-                <a
-                  class="press-clip"
-                  href={withBase(full)}
-                  target="_blank"
-                  rel="noopener"
-                  aria-label={`Veure el retall complet de ${item.outlet}`}
-                >
-                  <img src={withBase(item.image)} alt={`Retall de premsa de ${item.outlet}: ${item.quote}`} loading="lazy" />
-                  <span class="press-clip-zoom">Ampliar</span>
-                </a>
-                <div class="press-feature-body">
-                  <span class="press-feature-outlet">{item.outlet}</span>
-                  <p class="press-quote-lg">“{item.quote}”</p>
-                  <div class="press-meta">
-                    <span class="press-kind">{item.kind}</span>
-                    <span class="press-date">{item.date}</span>
-                  </div>
-                  <div class="press-feature-links">
-                    {external && (
-                      <a class="press-cta is-link" href={item.url} target="_blank" rel="noopener">Llegir online →</a>
-                    )}
-                    {item.scan && (
-                      <a class="press-scan-link" href={withBase(item.scan)} target="_blank" rel="noopener">Veure pàgina sencera →</a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            );
-          }
-
-          const Tag = external ? 'a' : 'div';
-          return (
-            <Tag
-              class:list={['press-item', { 'is-link': external }]}
-              {...(external ? { href: item.url, target: '_blank', rel: 'noopener' } : {})}
-            >
-              <span class="press-outlet">{item.outlet}</span>
-              <span class="press-quote">{item.quote}</span>
-              <span class="press-meta">
-                <span class="press-kind">{item.kind}</span>
-                <span class="press-date">{item.date}</span>
-              </span>
-              <span class="press-cta">{external ? 'Llegir →' : 'Aviat'}</span>
-            </Tag>
-          );
-        })}
+      <PressList items={recentPress} />
+      <div style="margin-top:40px;">
+        <a href={withBase('/premsa')} class="btn btn-outline">Tota la premsa →</a>
       </div>
     </div>
   </section>
 )}
 
-<!-- ─── ABOUT ─── -->
-<section id="about">
-  <div class="about-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}');`}></div>
-  <div class="about-overlay"></div>
-  <div class="about-scanlines"></div>
-  <div class="about-inner">
-    <p class="eyebrow">Qui som</p>
-    <div class="about-big">
-      Tres tios.<br>
-      <em>A Barcelona.</em>
-      Tal vegada no els mateixos del principi.
-    </div>
-    <p class="about-text">RES! neix el 2021 amb una missió clara: passar-s'ho bé i dir-ho tot sense filtres. Tres amics units per un amor comú al punk rock i una necessitat imperiosa d'expressar el que passa al seu voltant, en català, sense disculpes.</p>
-    <p class="about-text">En menys d'un any del seu naixement ja tenien el primer disc al carrer: "Sou tots uns fills de puta" (2022), i posteriorment "Les teves merdes" (2023), marquen el to: punk rock directe, honest, en la nostra llengua, autoproduït des d'un soterrani de Barcelona.</p>
-    <p class="about-text">Dos àlbums, molts concerts, cap intenció d'anar massa lluny.</p>
-    <div class="about-members">
-      <div class="member">
-        <div class="member-name">Àlex</div>
-        <div class="member-role">Veu · Baix</div>
-      </div>
-      <div class="member">
-        <div class="member-name">Pau</div>
-        <div class="member-role">Bateria</div>
-      </div>
-      <div class="member">
-        <div class="member-name">Nico</div>
-        <div class="member-role">Guitarra</div>
-      </div>
-    </div>
-    <br>
-    <a href="https://www.instagram.com/res_punk/" target="_blank" rel="noopener" class="btn btn-outline">Instagram @res_punk</a>
-  </div>
-</section>
-
 <!-- ─── CONTACT ─── -->
-<section id="contact">
-  <div class="contact-inner">
-    <h2 class="contact-title">Contacta<br>amb No som RES!</h2>
-    <p class="contact-sub">Reserves de concerts, col·laboracions, premsa o simplement per dir hola.</p>
-    <a href="mailto:hola@respunk.cat" class="contact-email">hola@respunk.cat</a>
-  </div>
-</section>
+<Contact />
 </Layout>
-
-<script>
-  document.addEventListener('click', (e) => {
-    const row = (e.target as Element).closest('[data-lyric-toggle]');
-    if (row) row.classList.toggle('open');
-  });
-</script>
