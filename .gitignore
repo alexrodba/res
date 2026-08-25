@@ -6,7 +6,8 @@ dist/
 .astro/
 
 # local tooling / editor
-.claude/
+.claude/*
+!.claude/launch.json
 .vscode/
 .DS_Store
 
