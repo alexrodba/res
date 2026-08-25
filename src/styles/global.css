@@ -368,6 +368,8 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
 .lyric-footer { font-size: 11px; letter-spacing: 3px; color: var(--dim-text); text-transform: uppercase; padding-top: 32px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; }
 .prose-content { font-family: var(--font-read); font-size: 16px; line-height: 1.8; color: var(--mid); }
 .prose-content p { margin-bottom: 20px; }
+.prose-content a { color: var(--red-text); text-decoration: underline; text-underline-offset: 3px; }
+.prose-content a:hover { color: var(--bone); }
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
