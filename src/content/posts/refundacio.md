@@ -21,7 +21,7 @@ La formació actual és:
 
 - **Àlex** — veu i baix
 - **Pau** — bateria
-- **Nico** — guitarra
+- **?** — guitarra (per confirmar)
 
 ## Què ve ara
 
