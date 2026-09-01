@@ -219,7 +219,6 @@ a { text-decoration: none; color: inherit; }
 .album-info .a-lnk:hover { color: var(--bone); border-color: var(--bone); }
 
 /* ─── LYRICS ─── */
-#lyrics { background: #0d0d0c; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .lyrics-album-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
 .lyrics-album-title { font-family: 'Anton', sans-serif; font-size: 28px; letter-spacing: 0.5px; color: var(--bone); }
 .lyrics-album-year { font-size: 11px; letter-spacing: 3px; color: var(--dim-text); }
@@ -231,7 +230,6 @@ a { text-decoration: none; color: inherit; }
 .lyric-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; gap: 16px; }
 .lyric-num { font-size: 11px; color: var(--red-text); letter-spacing: 2px; flex-shrink: 0; }
 .lyric-title { font-family: 'Anton', sans-serif; font-size: 16px; color: var(--bone); letter-spacing: 0.5px; flex: 1; }
-.lyric-dur { font-size: 11px; color: var(--dim-text); letter-spacing: 2px; flex-shrink: 0; }
 .lyric-plus { font-size: 18px; color: var(--dim-text); flex-shrink: 0; transition: transform 0.2s; }
 .lyric-row.open .lyric-plus { transform: rotate(45deg); color: var(--red); }
 .lyric-body { display: none; padding: 20px 24px 24px; font-family: var(--font-read); font-size: 15px; line-height: 1.85; color: var(--mid); white-space: pre-line; border-top: 1px solid var(--line); }
@@ -244,6 +242,11 @@ a { text-decoration: none; color: inherit; }
 .media-photo { aspect-ratio: 1; overflow: hidden; position: relative; background: #111; cursor: pointer; }
 .media-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1); transition: filter 0.4s, transform 0.4s; }
 .media-photo:hover img { filter: grayscale(0.3) contrast(1.05); transform: scale(1.04); }
+/* Placeholder frames are branded graphics, not photos — keep them full-colour,
+   calm, and non-interactive (no pointer cursor, they don't click anywhere). */
+.media-photo-ph { cursor: default; }
+.media-photo-ph img { filter: none; }
+.media-photo-ph:hover img { filter: none; transform: scale(1.02); }
 .videos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
 .video-item { position: relative; aspect-ratio: 16/9; background: #111; overflow: hidden; cursor: pointer; }
 .video-thumb { width: 100%; height: 100%; background: #111; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
@@ -346,24 +349,6 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
 .breadcrumb { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--dim-text); margin-bottom: 32px; }
 .breadcrumb a:hover { color: var(--red-text); }
 .breadcrumb .sep { margin: 0 8px; }
-.tracklist { list-style: none; border-top: 1px solid var(--line); }
-.tracklist li { border-bottom: 1px solid var(--line); }
-.tracklist li a { display: flex; align-items: center; gap: 24px; padding: 18px 0; transition: padding-left 0.2s; }
-.tracklist li a:hover { padding-left: 14px; }
-.track-num { font-size: 11px; color: var(--red-text); letter-spacing: 2px; width: 24px; flex-shrink: 0; }
-.track-name { flex: 1; font-family: 'Anton', sans-serif; font-size: 18px; color: var(--bone); }
-.track-arrow { font-size: 11px; color: var(--dim-text); transition: color 0.2s; }
-.tracklist li a:hover .track-arrow { color: var(--red-text); }
-.album-section { margin-bottom: 60px; }
-.album-section-header { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--line); margin-bottom: 0; }
-.album-section-title { font-family: 'Anton', sans-serif; font-size: 28px; color: var(--bone); }
-.album-section-year { font-size: 11px; letter-spacing: 3px; color: var(--red-text); }
-.post-list { list-style: none; border-top: 1px solid var(--line); }
-.post-list li { border-bottom: 1px solid var(--line); }
-.post-list li a { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; transition: padding-left 0.2s, color 0.2s; }
-.post-list li a:hover { padding-left: 14px; }
-.post-title { font-family: 'Anton', sans-serif; font-size: 20px; color: var(--bone); }
-.post-date { font-size: 11px; letter-spacing: 3px; color: var(--dim-text); text-transform: uppercase; }
 .lyric-content { font-family: var(--font-read); font-size: 18px; line-height: 1.95; color: var(--mid); margin-bottom: 60px; white-space: pre-line; }
 .lyric-footer { font-size: 11px; letter-spacing: 3px; color: var(--dim-text); text-transform: uppercase; padding-top: 32px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; }
 .prose-content { font-family: var(--font-read); font-size: 16px; line-height: 1.8; color: var(--mid); }
