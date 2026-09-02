@@ -365,6 +365,7 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
   .section, .section-full { padding: 72px 24px; }
   .hero-hud { padding: 0 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
   .hero-stack .r { font-size: clamp(64px, 18vw, 120px); }
+  .scroll-hint { display: none; }
   .news-item { grid-template-columns: 1fr; gap: 28px; }
   .albums-grid { grid-template-columns: 1fr; gap: 48px; }
   .concert-row { grid-template-columns: 64px 1fr auto; gap: 16px; }
