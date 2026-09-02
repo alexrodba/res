@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Official website for No som RES! — punk rock in Catalan from Barcelona",
-  "homepage": "https://alexrodba.github.io/res/",
+  "homepage": "https://www.nosomres.cat/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alexrodba/res.git"
