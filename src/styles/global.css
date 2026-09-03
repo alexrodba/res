@@ -349,6 +349,9 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
 .breadcrumb { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--dim-text); margin-bottom: 32px; }
 .breadcrumb a:hover { color: var(--red-text); }
 .breadcrumb .sep { margin: 0 8px; }
+/* Post date. 13px mixed-case on --dim-text (5.0:1) — was 9px uppercase on
+   --dim (1.7:1), which the token comment reserves for hairlines, not text. */
+.post-date { font-size: 13px; letter-spacing: 1px; color: var(--dim-text); margin-bottom: 48px; }
 .lyric-content { font-family: var(--font-read); font-size: 18px; line-height: 1.95; color: var(--mid); margin-bottom: 60px; white-space: pre-line; }
 .lyric-footer { font-size: 11px; letter-spacing: 3px; color: var(--dim-text); text-transform: uppercase; padding-top: 32px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; }
 .prose-content { font-family: var(--font-read); font-size: 16px; line-height: 1.8; color: var(--mid); }
