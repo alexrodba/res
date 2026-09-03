@@ -7,7 +7,7 @@ import PressList from '../components/PressList.astro';
 import Contact from '../components/Contact.astro';
 import { press } from '../data/press';
 import { albums } from '../data/albums';
-import { upcomingConcerts, pastConcerts } from '../data/concerts';
+import { upcomingConcerts } from '../data/concerts';
 import { withBase } from '../lib/base';
 
 // Notícies — 3 most recent posts
@@ -15,11 +15,10 @@ const allPosts = await getCollection('posts');
 allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const recentPosts = allPosts.slice(0, 3);
 
-// Concerts — show up to 3 upcoming; only fall back to past when nothing is planned
-const upcoming = upcomingConcerts();
-const past = pastConcerts();
-const homepageConcerts = upcoming.length ? upcoming.slice(0, 3) : past.slice(0, 3);
-const homepageConcertVariant = upcoming.length ? 'upcoming' : 'past';
+// Concerts — up to 3 upcoming, and no fall back to past dates: a homepage list
+// of 2022 gigs badged "Passat" answers "are they playing?" worse than the empty
+// state does. The history lives on /concerts, where it has its own section.
+const homepageConcerts = upcomingConcerts().slice(0, 3);
 
 // Premsa — 3 most recent features
 const recentPress = press.slice(0, 3);
@@ -137,7 +136,7 @@ const schema = {
     <h2 class="eyebrow">Concerts</h2>
     {homepageConcerts.length > 0 ? (
       <>
-        <ConcertList concerts={homepageConcerts} variant={homepageConcertVariant} />
+        <ConcertList concerts={homepageConcerts} />
         <div style="margin-top:40px;">
           <a href={withBase('/concerts')} class="btn btn-outline">Tots els concerts →</a>
         </div>

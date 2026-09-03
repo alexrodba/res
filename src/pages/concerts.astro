@@ -1,21 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ConcertList from '../components/ConcertList.astro';
+import PastConcerts from '../components/PastConcerts.astro';
 import { upcomingConcerts, pastConcerts } from '../data/concerts';
 
 const upcoming = upcomingConcerts();
 const past = pastConcerts();
-const hasAny = upcoming.length > 0 || past.length > 0;
 
 const description =
-  "Concerts de No som RES!, punk rock en català des de Barcelona. Consulta les properes dates i segueix-nos per no perdre-te'n cap.";
+  "Concerts de No som RES!, punk rock en català des de Barcelona. Les properes dates i l'historial de concerts des del 2021.";
 ---
 
 <Layout title="Concerts" description={description}>
   <div class="page-wrap">
     <h1 class="page-title">Concerts</h1>
 
-    {!hasAny && (
+    {upcoming.length > 0 ? (
+      <section>
+        <h2 class="eyebrow">Propers concerts</h2>
+        <ConcertList concerts={upcoming} />
+      </section>
+    ) : (
       <div class="concert-empty">
         <div class="concert-empty-title">Ara mateix,<br><em>cap concert</em> a la vista.</div>
         <p class="concert-empty-text">Estem tancats a les nostres respectives cases gestionant vides complicades. Les properes dates apareixeran aquí algun dia. Segueix-nos per no perdre-te'n cap.</p>
@@ -26,17 +31,10 @@ const description =
       </div>
     )}
 
-    {upcoming.length > 0 && (
-      <section style="margin-bottom: 64px;">
-        <p class="eyebrow">Propers concerts</p>
-        <ConcertList concerts={upcoming} variant="upcoming" />
-      </section>
-    )}
-
     {past.length > 0 && (
-      <section>
-        <p class="eyebrow">Concerts passats</p>
-        <ConcertList concerts={past} variant="past" />
+      <section style="margin-top: 72px;">
+        <h2 class="eyebrow">Concerts passats</h2>
+        <PastConcerts concerts={past} />
       </section>
     )}
   </div>

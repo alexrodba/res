@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import type { Concert } from '../data/concerts';
+import { withBase } from '../lib/base';
+
+interface Props {
+  concerts: Concert[];
+}
+
+const { concerts } = Astro.props;
+
+const MONTHS = ['Gen', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Des'];
+// Concert dates are authored as YYYY-MM-DD (UTC midnight) — read in UTC so the
+// displayed day/month matches what was written, regardless of build timezone.
+function parts(dateStr: string) {
+  const d = new Date(dateStr);
+  return { day: d.getUTCDate(), mon: MONTHS[d.getUTCMonth()], year: d.getUTCFullYear() };
+}
+
+// Setlist songs link to their own lyrics page, matched on title — the same
+// match music.astro uses to link the discography schema to the words. Matched
+// case-insensitively so a setlist typed as "Polla Vella" still finds the song;
+// covers match nothing and render as plain text.
+const allLyrics = await getCollection('lyrics');
+const key = (title: string) => title.trim().toLowerCase();
+const lyricUrlFor = (song: string) => {
+  const match = allLyrics.find((l) => key(l.data.title) === key(song));
+  return match ? withBase(`/lyrics/${match.id}`) : undefined;
+};
+---
+
+<div class="past-list">
+  {concerts.map((c) => {
+    const { day, mon, year } = parts(c.date);
+    // The early gigs have no venue on record, only a town, so the big line
+    // falls back to the city rather than rendering an empty row.
+    const place = c.venue ?? c.city;
+    const meta = [
+      c.venue ? c.city : undefined,
+      c.lineup?.length ? `amb ${c.lineup.join(' + ')}` : undefined,
+    ]
+      .filter(Boolean)
+      .join(' · ');
+    return (
+      <details class="past-row">
+        <summary class="past-header">
+          <div>
+            <div class="c-day">{day}</div>
+            <div class="c-mon">{mon} {year}</div>
+          </div>
+          <div>
+            <div class="c-venue">{place}</div>
+            {meta && <div class="c-loc">{meta}</div>}
+            {/* Not a .c-badge: that class is hidden below 900px, which is right
+                for the table's decorative label but would drop real copy. */}
+            {c.note && <div class="past-note">{c.note}</div>}
+          </div>
+          <span class="past-plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="past-body">
+          {c.setlist?.length ? (
+            <ol class="past-setlist">
+              {c.setlist.map((song) => {
+                const href = lyricUrlFor(song);
+                return <li class="past-song">{href ? <a href={href}>{song}</a> : song}</li>;
+              })}
+            </ol>
+          ) : (
+            <p class="past-nosetlist">No tenim la setlist d'aquest concert.</p>
+          )}
+          {(c.photosUrl || c.videoUrl) && (
+            <div class="past-links">
+              {c.photosUrl && <a class="c-link" href={c.photosUrl} target="_blank" rel="noopener">Fotos</a>}
+              {c.videoUrl && <a class="c-link" href={c.videoUrl} target="_blank" rel="noopener">Vídeo</a>}
+            </div>
+          )}
+        </div>
+      </details>
+    );
+  })}
+</div>
