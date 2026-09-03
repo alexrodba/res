@@ -36,17 +36,17 @@ const description =
           </div>
           <div class="lyrics-grid">
             {songs.map((lyric, j) => (
-              <div class="lyric-row" data-lyric-toggle>
-                <div class="lyric-header">
+              <details class="lyric-row">
+                <summary class="lyric-header">
                   <span class="lyric-num">{String(j + 1).padStart(2, '0')}</span>
                   <span class="lyric-title">{lyric.data.title}</span>
-                  <span class="lyric-plus">+</span>
-                </div>
+                  <span class="lyric-plus" aria-hidden="true">+</span>
+                </summary>
                 <div class="lyric-body">
                   {lyric.body}
                   <a href={withBase(`/lyrics/${lyric.id}`)} class="lyric-page-link">Veure lletra completa →</a>
                 </div>
-              </div>
+              </details>
             ))}
           </div>
         </>
@@ -54,10 +54,3 @@ const description =
     })}
   </div>
 </Layout>
-
-<script>
-  document.addEventListener('click', (e) => {
-    const row = (e.target as Element).closest('[data-lyric-toggle]');
-    if (row) row.classList.toggle('open');
-  });
-</script>
