@@ -39,6 +39,7 @@ const schema = albums.map((album) => ({
   genre: 'Punk rock',
   inLanguage: 'ca',
   url: `https://open.spotify.com/album/${album.spotifyId}`,
+  image: new URL(withBase(album.cover), Astro.site).href,
   sameAs: ['https://resbcn.bandcamp.com'],
   albumProductionType: 'https://schema.org/StudioAlbum',
   albumReleaseType: 'https://schema.org/AlbumRelease',
@@ -57,17 +58,17 @@ const schema = albums.map((album) => ({
   <div class="page-wrap">
     <h1 class="page-title">Música</h1>
     <div class="albums-grid">
-      {albums.map((album, i) => (
+      {albums.map((album) => (
         <div class="album-card">
           <div class="album-cover">
-            <div class={`album-art album-art-${i + 1}`}>
-              <div class="album-logo">
-                <span class="r">RES!</span>
-                <span class="r">RES!</span>
-                <span class="r">RES!</span>
-                <span class="r">RES!</span>
-              </div>
-              <span class="album-sub">{album.name}</span>
+            <div class="album-art">
+              <img
+                src={withBase(album.cover)}
+                alt={`Portada de «${album.name}» de No som RES!`}
+                width="800"
+                height="800"
+                loading="lazy"
+              />
             </div>
             <div class="album-hover">
               <div class="album-meta">
