@@ -17,9 +17,12 @@ for (const album of albums) {
   });
   byAlbum.set(album.name, songs);
 }
+
+const description =
+  'Totes les lletres de No som RES!, cançó per cançó, dels àlbums «Sou tots uns fills de puta» (2022) i «Les teves merdes» (2023).';
 ---
 
-<Layout title="Lletres">
+<Layout title="Lletres" description={description}>
   <div class="page-wrap">
     <h1 class="page-title">Lletres</h1>
 

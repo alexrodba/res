@@ -5,9 +5,12 @@ import NewsCard from '../../components/NewsCard.astro';
 
 const posts = await getCollection('posts');
 posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const description =
+  'Notícies de No som RES!: anuncis, novetats i aniversaris de disc de la banda de punk rock en català de Barcelona.';
 ---
 
-<Layout title="Notícies">
+<Layout title="Notícies" description={description}>
   <div class="page-wrap">
     <h1 class="page-title">Notícies</h1>
 

@@ -4,17 +4,65 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { withBase } from '../lib/base';
 
+type Schema = Record<string, unknown>;
+
 interface Props {
   title?: string;
   description?: string;
+  /**
+   * Social-card headline. Defaults to `title` — og:site_name already carries the
+   * band name, so the card doesn't need the "— No som RES!" suffix the <title> has.
+   */
+  ogTitle?: string;
+  ogType?: 'website' | 'article';
+  /** Share image under /public. Must be 1200×630 unless the size props are set too. */
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
+  /** Publication date, for og:type="article" pages. */
+  publishedTime?: Date;
+  /** One JSON-LD payload or several, rendered as ld+json script tags. */
+  schema?: Schema | Schema[];
+  /** Keeps the page out of search results (used by /404). */
+  noindex?: boolean;
 }
+
+const SITE_NAME = 'No som RES!';
+const DEFAULT_DESCRIPTION =
+  'Pàgina oficial de No som RES!, punk rock de Barcelona en català.';
+const DEFAULT_OG_ALT =
+  'El wordmark de No som RES! sobre una sala de concerts plena, en blanc i negre.';
 
 const {
   title,
-  description = 'Pàgina oficial de No som RES!, punk rock de Barcelona en català.',
+  description = DEFAULT_DESCRIPTION,
+  ogTitle,
+  ogType = 'website',
+  ogImage = '/og/default.jpg',
+  ogImageAlt = DEFAULT_OG_ALT,
+  ogImageWidth = 1200,
+  ogImageHeight = 630,
+  publishedTime,
+  schema,
+  noindex = false,
 } = Astro.props;
 
-const pageTitle = title ? `${title} — No som RES!` : 'No som RES! — Punk Rock Barcelona';
+// Some post titles already contain the band name ("No som RES! — la refundació"),
+// so only append the suffix when it isn't already there.
+const pageTitle = title
+  ? title.includes(SITE_NAME)
+    ? title
+    : `${title} — ${SITE_NAME}`
+  : 'No som RES! — Punk Rock Barcelona';
+const socialTitle = ogTitle ?? title ?? 'Punk rock en català des de Barcelona';
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+// No canonical on noindex pages — /404.html isn't served at its route URL,
+// so a self-referencing canonical there would point at nothing.
+const canonical = noindex ? undefined : pageUrl;
+// Crawlers and chat clients need an absolute image URL, not a site-relative one.
+const ogImageUrl = new URL(withBase(ogImage), Astro.site).href;
+const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
 <!doctype html>
@@ -24,9 +72,35 @@ const pageTitle = title ? `${title} — No som RES!` : 'No som RES! — Punk Roc
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{pageTitle}</title>
+    {canonical && <link rel="canonical" href={canonical} />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#0a0a09" />
     <link rel="icon" href={withBase('/favicon.ico')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase('/apple-touch-icon.png')} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="ca_ES" />
+    <meta property="og:title" content={socialTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content={String(ogImageWidth)} />
+    <meta property="og:image:height" content={String(ogImageHeight)} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    {publishedTime && (
+      <meta property="article:published_time" content={publishedTime.toISOString()} />
+    )}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={socialTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body>
     <Nav />

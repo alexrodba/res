@@ -3,7 +3,7 @@
 :root {
   --red: #e8001d;                    /* brand red — large text (≥24px) & fills only */
   --red-text: #ff3446;               /* small red text (<14px) on dark — AA 4.5:1 */
-  --red-ink: #900014;                /* red on LIGHT backgrounds (e.g. album covers) */
+  --red-ink: #900014;                /* red on LIGHT backgrounds — unused since the CSS album covers went */
   --bone: #f0ece2;
   --black: #0a0a09;
   --grey: #1a1a18;
@@ -44,6 +44,9 @@ a { text-decoration: none; color: inherit; }
 /* ─── UTILITY ─── */
 .eyebrow {
   font-size: 11px;
+  /* Pinned so the label renders identically whether it's a <p> or a section <h2>
+     — headings would otherwise pick up the UA's bold. */
+  font-weight: 400;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--red-text);
@@ -192,17 +195,11 @@ a { text-decoration: none; color: inherit; }
 /* ─── DISCOGRAPHY ─── */
 .albums-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 .album-cover { width: 100%; aspect-ratio: 1; position: relative; overflow: hidden; margin-bottom: 24px; cursor: pointer; }
-.album-art { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: transform 0.5s ease; }
+/* Real sleeve artwork. Replaced the CSS recreations of the covers (a bone/blue
+   plate with a stacked "RES!" wordmark) once the actual scans landed. */
+.album-art { position: absolute; inset: 0; transition: transform 0.5s ease; }
+.album-art img { width: 100%; height: 100%; object-fit: cover; }
 .album-card:hover .album-art { transform: scale(1.04); }
-.album-art-1 { background: #ddd8ce; }
-.album-art-2 { background: #cdd2e0; }
-.album-logo { font-family: 'Anton', sans-serif; line-height: 0.82; text-align: center; font-size: clamp(30px, 7vw, 64px); letter-spacing: -2px; }
-.album-logo .r { display: block; }
-.album-art-1 .album-logo { color: #e8001d; text-shadow: 3px 3px 0 rgba(255,255,255,0.5), 5px 5px 0 rgba(232,0,29,0.25); }
-.album-art-2 .album-logo { color: #1a3fd4; text-shadow: 3px 3px 0 rgba(255,255,255,0.5), 5px 5px 0 rgba(26,63,212,0.2); }
-.album-sub { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; margin-top: 10px; }
-.album-art-1 .album-sub { color: var(--red-ink); }
-.album-art-2 .album-sub { color: #1a3fd4; }
 .album-hover { position: absolute; inset: 0; background: rgba(10,10,9,0); transition: background 0.35s; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; }
 .album-card:hover .album-hover { background: rgba(10,10,9,0.8); }
 .album-meta { opacity: 0; transform: translateY(10px); transition: all 0.3s; }
@@ -314,7 +311,7 @@ a { text-decoration: none; color: inherit; }
 .about-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,10,9,0.96) 0%, rgba(10,10,9,0.75) 55%, rgba(10,10,9,0.1) 100%); }
 .about-scanlines { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px); pointer-events: none; }
 .about-inner { position: relative; z-index: 2; padding: 110px 60px; max-width: 700px; }
-.about-big { font-family: 'Anton', sans-serif; font-size: clamp(48px, 7.5vw, 80px); line-height: 0.88; letter-spacing: -2px; color: var(--bone); margin-bottom: 40px; }
+.about-big { font-family: 'Anton', sans-serif; font-weight: 400; font-size: clamp(48px, 7.5vw, 80px); line-height: 0.88; letter-spacing: -2px; color: var(--bone); margin-bottom: 40px; }
 .about-big em { font-style: normal; color: var(--red); display: block; }
 .about-text { font-family: var(--font-read); font-size: 16px; line-height: 1.8; color: var(--mid); margin-bottom: 16px; max-width: 560px; }
 .about-members { display: flex; gap: 40px; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--line); }
@@ -322,11 +319,14 @@ a { text-decoration: none; color: inherit; }
 .member-role { font-size: 11px; letter-spacing: 3px; color: var(--red-text); text-transform: uppercase; }
 
 /* ─── CONTACT ─── */
+/* Pure #ffffff — not --bone — on the red fill: bone only reaches 4.00:1 here,
+   white reaches 4.72:1. The display-size .contact-title can stay bone because
+   it clears the 3:1 large-text threshold. */
 #contact { background: var(--red); padding: 100px 60px; text-align: center; }
 .contact-inner { max-width: 600px; margin: 0 auto; }
 .contact-title { font-family: 'Anton', sans-serif; font-size: clamp(40px, 7vw, 72px); color: var(--bone); line-height: 0.9; letter-spacing: -1px; margin-bottom: 24px; }
-.contact-sub { font-family: var(--font-read); font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.92); margin-bottom: 36px; }
-.contact-email { font-family: 'Anton', sans-serif; font-size: clamp(18px, 3vw, 28px); color: var(--bone); letter-spacing: 2px; border-bottom: 2px solid rgba(240,236,226,0.4); padding-bottom: 4px; transition: border-color 0.2s; }
+.contact-sub { font-family: var(--font-read); font-size: 16px; line-height: 1.7; color: #ffffff; margin-bottom: 36px; }
+.contact-email { font-family: 'Anton', sans-serif; font-size: clamp(18px, 3vw, 28px); color: #ffffff; letter-spacing: 2px; border-bottom: 2px solid rgba(240,236,226,0.4); padding-bottom: 4px; transition: border-color 0.2s; }
 .contact-email:hover { border-color: var(--bone); }
 
 /* ─── FOOTER ─── */
@@ -383,7 +383,9 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
   .press-outlet { grid-column: 1; }
   .press-cta { grid-column: 2; grid-row: 1; align-self: start; }
   .press-quote { grid-column: 1 / -1; grid-row: 2; }
-  .press-meta { grid-column: 1 / -1; grid-row: 3; flex-direction: row; gap: 14px; text-align: left; margin-top: 4px; }
+  /* Row layout on narrow screens; wraps so a three-chip meta line (kind +
+     timestamp + date) can't push past the viewport. */
+  .press-meta { grid-column: 1 / -1; grid-row: 3; flex-direction: row; flex-wrap: wrap; gap: 8px 14px; text-align: left; margin-top: 4px; }
   .media-photos { grid-template-columns: 1fr 1fr; }
   .videos-grid { grid-template-columns: 1fr; }
   .about-big { font-size: clamp(40px, 10vw, 64px); }
@@ -408,7 +410,9 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
   .nav-links li { width: 100%; border-bottom: 1px solid var(--line); }
   .nav-links li:last-child { border-bottom: none; }
   .nav-links a { display: block; padding: 18px 2px; font-size: 13px; letter-spacing: 3px; color: var(--bone); }
-  .nav-logo { font-size: 22px; position: relative; z-index: 1101; }
+  /* Stays at 24px: .nav-logo em is --red, which needs the ≥24px large-text
+     threshold to be legible enough (4.20:1). Dropping below 24 fails WCAG AA. */
+  .nav-logo { font-size: 24px; position: relative; z-index: 1101; }
   .hero-stack .r { font-size: clamp(52px, 17vw, 90px); }
   .media-photos { grid-template-columns: 1fr; }
   .concert-row { grid-template-columns: 56px 1fr; }

@@ -2,9 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import PressList from '../components/PressList.astro';
 import { press } from '../data/press';
+
+const description =
+  'Premsa sobre No som RES!: ressenyes, entrevistes i aparicions a TV3, El 9 Nou i Enderrock. Punk rock en català des de Barcelona.';
 ---
 
-<Layout title="Premsa">
+<Layout title="Premsa" description={description}>
   <div class="page-wrap">
     <h1 class="page-title">Premsa</h1>
     <div class="press-intro">

@@ -1,9 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { withBase } from '../lib/base';
+
+const description =
+  "Aquesta pàgina no existeix. Torna a l'inici de No som RES!, punk rock en català des de Barcelona.";
 ---
 
-<Layout title="404">
+<Layout title="404" ogTitle="Pàgina no trobada" description={description} noindex>
   <div class="page-wrap" style="min-height:60vh; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:20px;">
     <div class="hero-stack" style="position:static; transform:none; width:auto; text-align:left;">
       <span class="r" style="font-size:clamp(72px,14vw,140px);">4</span>

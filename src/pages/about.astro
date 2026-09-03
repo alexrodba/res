@@ -2,20 +2,23 @@
 import Layout from '../layouts/Layout.astro';
 import Contact from '../components/Contact.astro';
 import { withBase } from '../lib/base';
+
+const description =
+  'No som RES! és una banda de punk rock en català nascuda a Barcelona el 2021. Coneix els membres, la història del grup i els seus dos àlbums.';
 ---
 
-<Layout title="Qui som">
+<Layout title="Qui som" description={description}>
   <section id="about">
-    <div class="about-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}');`}></div>
+    <div class="about-bg" style={`background-image: url('${withBase('/img/bg2.jpeg')}');`}></div>
     <div class="about-overlay"></div>
     <div class="about-scanlines"></div>
     <div class="about-inner">
       <p class="eyebrow">Qui som</p>
-      <div class="about-big">
+      <h1 class="about-big">
         Tres tios.<br>
         <em>A Barcelona.</em>
         Tal vegada no els mateixos del principi.
-      </div>
+      </h1>
       <p class="about-text">RES! neix el 2021 amb una missió clara: passar-s'ho bé i dir-ho tot sense filtres. Tres amics units per un amor comú al punk rock i una necessitat imperiosa d'expressar el que passa al seu voltant, en català, sense disculpes.</p>
       <p class="about-text">En menys d'un any del seu naixement ja tenien el primer disc al carrer: "Sou tots uns fills de puta" (2022), i posteriorment "Les teves merdes" (2023), marquen el to: punk rock directe, honest, en la nostra llengua, autoproduït des d'un soterrani de Barcelona.</p>
       <p class="about-text">Dos àlbums, molts concerts, cap intenció d'anar massa lluny.</p>
