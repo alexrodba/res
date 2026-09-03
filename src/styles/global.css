@@ -251,17 +251,17 @@ a { text-decoration: none; color: inherit; }
 .lyrics-album-title { font-family: 'Anton', sans-serif; font-size: 28px; letter-spacing: 0.5px; color: var(--bone); }
 .lyrics-album-year { font-size: 11px; letter-spacing: 3px; color: var(--dim-text); }
 .lyrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-bottom: 80px; }
-.lyric-row { border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); padding: 0; cursor: pointer; transition: background 0.2s; }
+.lyric-row { border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); padding: 0; transition: background 0.2s; }
 .lyric-row:nth-child(3n) { border-right: none; }
 .lyric-row:hover { background: rgba(255,255,255,0.02); }
-.lyric-row.open { background: rgba(232,0,29,0.04); }
-.lyric-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; gap: 16px; }
+.lyric-row[open] { background: rgba(232,0,29,0.04); }
+.lyric-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; gap: 16px; cursor: pointer; list-style: none; }
+.lyric-header::-webkit-details-marker { display: none; }
 .lyric-num { font-size: 11px; color: var(--red-text); letter-spacing: 2px; flex-shrink: 0; }
 .lyric-title { font-family: 'Anton', sans-serif; font-size: 16px; color: var(--bone); letter-spacing: 0.5px; flex: 1; }
 .lyric-plus { font-size: 18px; color: var(--dim-text); flex-shrink: 0; transition: transform 0.2s; }
-.lyric-row.open .lyric-plus { transform: rotate(45deg); color: var(--red); }
-.lyric-body { display: none; padding: 20px 24px 24px; font-family: var(--font-read); font-size: 15px; line-height: 1.85; color: var(--mid); white-space: pre-line; border-top: 1px solid var(--line); }
-.lyric-row.open .lyric-body { display: block; }
+.lyric-row[open] .lyric-plus { transform: rotate(45deg); color: var(--red); }
+.lyric-body { padding: 20px 24px 24px; font-family: var(--font-read); font-size: 15px; line-height: 1.85; color: var(--mid); white-space: pre-line; border-top: 1px solid var(--line); }
 .lyric-page-link { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--red-text); display: block; width: fit-content; margin-top: 28px; border-bottom: 1px solid var(--red); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
 .lyric-page-link:hover { color: var(--bone); border-color: var(--bone); }
 
