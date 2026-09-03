@@ -44,6 +44,9 @@ a { text-decoration: none; color: inherit; }
 /* ─── UTILITY ─── */
 .eyebrow {
   font-size: 11px;
+  /* Pinned so the label renders identically whether it's a <p> or a section <h2>
+     — headings would otherwise pick up the UA's bold. */
+  font-weight: 400;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--red-text);
@@ -314,7 +317,7 @@ a { text-decoration: none; color: inherit; }
 .about-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,10,9,0.96) 0%, rgba(10,10,9,0.75) 55%, rgba(10,10,9,0.1) 100%); }
 .about-scanlines { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px); pointer-events: none; }
 .about-inner { position: relative; z-index: 2; padding: 110px 60px; max-width: 700px; }
-.about-big { font-family: 'Anton', sans-serif; font-size: clamp(48px, 7.5vw, 80px); line-height: 0.88; letter-spacing: -2px; color: var(--bone); margin-bottom: 40px; }
+.about-big { font-family: 'Anton', sans-serif; font-weight: 400; font-size: clamp(48px, 7.5vw, 80px); line-height: 0.88; letter-spacing: -2px; color: var(--bone); margin-bottom: 40px; }
 .about-big em { font-style: normal; color: var(--red); display: block; }
 .about-text { font-family: var(--font-read); font-size: 16px; line-height: 1.8; color: var(--mid); margin-bottom: 16px; max-width: 560px; }
 .about-members { display: flex; gap: 40px; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--line); }
@@ -383,7 +386,9 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
   .press-outlet { grid-column: 1; }
   .press-cta { grid-column: 2; grid-row: 1; align-self: start; }
   .press-quote { grid-column: 1 / -1; grid-row: 2; }
-  .press-meta { grid-column: 1 / -1; grid-row: 3; flex-direction: row; gap: 14px; text-align: left; margin-top: 4px; }
+  /* Row layout on narrow screens; wraps so a three-chip meta line (kind +
+     timestamp + date) can't push past the viewport. */
+  .press-meta { grid-column: 1 / -1; grid-row: 3; flex-direction: row; flex-wrap: wrap; gap: 8px 14px; text-align: left; margin-top: 4px; }
   .media-photos { grid-template-columns: 1fr 1fr; }
   .videos-grid { grid-template-columns: 1fr; }
   .about-big { font-size: clamp(40px, 10vw, 64px); }

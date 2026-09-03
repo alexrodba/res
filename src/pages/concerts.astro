@@ -6,9 +6,12 @@ import { upcomingConcerts, pastConcerts } from '../data/concerts';
 const upcoming = upcomingConcerts();
 const past = pastConcerts();
 const hasAny = upcoming.length > 0 || past.length > 0;
+
+const description =
+  "Concerts de No som RES!, punk rock en català des de Barcelona. Consulta les properes dates i segueix-nos per no perdre-te'n cap.";
 ---
 
-<Layout title="Concerts">
+<Layout title="Concerts" description={description}>
   <div class="page-wrap">
     <h1 class="page-title">Concerts</h1>
 

@@ -6,6 +6,7 @@ import ConcertList from '../components/ConcertList.astro';
 import PressList from '../components/PressList.astro';
 import Contact from '../components/Contact.astro';
 import { press } from '../data/press';
+import { albums } from '../data/albums';
 import { upcomingConcerts, pastConcerts } from '../data/concerts';
 import { withBase } from '../lib/base';
 
@@ -22,12 +23,47 @@ const homepageConcertVariant = upcoming.length ? 'upcoming' : 'past';
 
 // Premsa — 3 most recent features
 const recentPress = press.slice(0, 3);
+
+const description =
+  "No som RES!, punk rock en català des de Barcelona. Dos àlbums — «Sou tots uns fills de puta» (2022) i «Les teves merdes» (2023) — notícies, concerts i lletres.";
+
+// MusicGroup schema so search engines and AI answers get the band, the line-up
+// era and the discography from one place instead of guessing from the copy.
+// `email` is deliberately left out until hola@nosomres.cat actually receives mail.
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: 'No som RES!',
+  alternateName: 'RES!',
+  url: new URL('/', Astro.site).href,
+  description,
+  genre: ['Punk rock', 'Punk'],
+  foundingDate: '2021',
+  foundingLocation: {
+    '@type': 'Place',
+    name: 'Barcelona, Catalunya',
+  },
+  inLanguage: 'ca',
+  sameAs: [
+    'https://www.instagram.com/res_punk/',
+    'https://open.spotify.com/artist/5TGsKoYoodgc42udARkKA4',
+    'https://resbcn.bandcamp.com',
+  ],
+  album: albums.map((album) => ({
+    '@type': 'MusicAlbum',
+    name: album.name,
+    datePublished: String(album.year),
+    numTracks: album.songs.length,
+    byArtist: { '@type': 'MusicGroup', name: 'No som RES!' },
+    url: `https://open.spotify.com/album/${album.spotifyId}`,
+  })),
+};
 ---
 
-<Layout>
+<Layout description={description} schema={schema}>
 <!-- ─── HERO ─── -->
 <section id="hero">
-  <div class="hero-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}');`}></div>
+  <div class="hero-bg" style={`background-image: url('${withBase('/img/bg2.jpeg')}');`}></div>
   <div class="hero-overlay"></div>
   <div class="hero-scanlines"></div>
   <h1 class="hero-stack" aria-label="No som RES!">
@@ -72,7 +108,7 @@ const recentPress = press.slice(0, 3);
 <!-- ─── NEWS ─── -->
 <section>
   <div class="section">
-    <p class="eyebrow">Notícies</p>
+    <h2 class="eyebrow">Notícies</h2>
     <div class="news-grid">
       {recentPosts.map((post) => <NewsCard post={post} />)}
     </div>
@@ -84,7 +120,7 @@ const recentPress = press.slice(0, 3);
 
 <!-- ─── PHOTO BREAK 1 ─── -->
 <div class="photo-break">
-  <div class="photo-break-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}');`}></div>
+  <div class="photo-break-bg" style={`background-image: url('${withBase('/img/bg2.jpeg')}');`}></div>
   <div class="photo-break-overlay"></div>
   <div class="photo-break-text">
     <div class="photo-quote">
@@ -98,7 +134,7 @@ const recentPress = press.slice(0, 3);
 <!-- ─── CONCERTS ─── -->
 <section id="concerts">
   <div class="section-full" style="max-width:1280px; margin:0 auto;">
-    <p class="eyebrow">Concerts</p>
+    <h2 class="eyebrow">Concerts</h2>
     {homepageConcerts.length > 0 ? (
       <>
         <ConcertList concerts={homepageConcerts} variant={homepageConcertVariant} />
@@ -119,47 +155,16 @@ const recentPress = press.slice(0, 3);
   </div>
 </section>
 
-<!-- ─── MEDIA (Fotos & Vídeos) ─── -->
-<section>
-  <div class="section">
-    <p class="eyebrow">Fotos &amp; Vídeos</p>
-    {/* No band photos yet — decorative on-brand placeholder frames until we
-        have real ones. alt="" so screen readers skip these empty slots. */}
-    <div class="media-photos">
-      {['ph-01', 'ph-02', 'ph-03', 'ph-04', 'ph-05', 'ph-06'].map((name) => (
-        <div class="media-photo media-photo-ph">
-          <img src={withBase(`/img/media/${name}.svg`)} alt="" loading="lazy" />
-        </div>
-      ))}
-    </div>
-
-    <p class="eyebrow" style="margin-top:60px;">Vídeos</p>
-    <div class="videos-grid">
-      <a href="https://www.youtube.com/@res_punk" target="_blank" rel="noopener" class="video-item">
-        <div class="video-thumb">
-          <div class="video-play"><div class="video-play-icon"></div></div>
-        </div>
-        <div class="video-label">
-          <div class="video-title">Canal de YouTube</div>
-          <div class="video-sub">@res_punk · Tots els vídeos</div>
-        </div>
-      </a>
-      <a href="https://www.instagram.com/res_punk/" target="_blank" rel="noopener" class="video-item">
-        <div class="video-thumb">
-          <div class="video-play"><div class="video-play-icon"></div></div>
-        </div>
-        <div class="video-label">
-          <div class="video-title">Instagram</div>
-          <div class="video-sub">@res_punk · Lives &amp; stories</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
+<!-- ─── MEDIA (Fotos & Vídeos) — hidden until we have real material ─── -->
+{/* Pulled from the homepage: the six photos were on-brand placeholders, and the
+    videos row pointed at a YouTube channel that doesn't exist yet. The
+    placeholder SVGs (/img/media/ph-0*.svg) and the .media-photos / .videos-grid
+    styles are still in the repo, so restoring this is a paste away once there
+    are real photos and a live channel. */}
 
 <!-- ─── PHOTO BREAK 2 ─── -->
 <div class="photo-break" style="height:32vh; min-height:220px;">
-  <div class="photo-break-bg" style={`background-image: url('${withBase('/img/bg.jpeg')}'); background-position: center 35%;`}></div>
+  <div class="photo-break-bg" style={`background-image: url('${withBase('/img/bg2.jpeg')}'); background-position: center 35%;`}></div>
   <div class="photo-break-overlay" style="background: linear-gradient(to bottom, rgba(10,10,9,0.3), rgba(10,10,9,0.7));"></div>
 </div>
 
@@ -167,7 +172,7 @@ const recentPress = press.slice(0, 3);
 {recentPress.length > 0 && (
   <section id="premsa">
     <div class="section">
-      <p class="eyebrow">Premsa</p>
+      <h2 class="eyebrow">Premsa</h2>
       <div class="press-intro">
         <h2 class="press-heading">On hem <em>sortit.</em></h2>
         <p class="press-lead">Ressenyes, entrevistes i llistes on ens han fet un lloc. Res de màrqueting: només gent que ens ha escoltat.</p>

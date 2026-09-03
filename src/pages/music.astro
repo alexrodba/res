@@ -1,9 +1,59 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import { albums } from '../data/albums';
+import { withBase } from '../lib/base';
+
+// `albums` is ordered newest-first for display, so the release ordinal has to
+// come from the year — not the array index, which would call the 2023 record
+// the first album.
+const byYear = [...albums].sort((a, b) => a.year - b.year);
+const ORDINALS = ['Primer', 'Segon', 'Tercer', 'Quart', 'Cinquè'];
+const releaseOrdinal = (album: (typeof albums)[number]) => {
+  const n = byYear.findIndex((a) => a.year === album.year && a.name === album.name);
+  return ORDINALS[n] ?? `${n + 1}è`;
+};
+
+const description =
+  "Els discos de No som RES!: «Sou tots uns fills de puta» (2022) i «Les teves merdes» (2023). Punk rock en català, escolta'ls a Spotify i Bandcamp.";
+
+// Track titles are matched to their lyrics page so the discography schema links
+// out to the actual words rather than being a bare list of names.
+const allLyrics = await getCollection('lyrics');
+const lyricUrlFor = (song: string) => {
+  const match = allLyrics.find((l) => l.data.title === song);
+  return match ? new URL(withBase(`/lyrics/${match.id}`), Astro.site).href : undefined;
+};
+
+const BAND = { '@type': 'MusicGroup', name: 'No som RES!', url: new URL('/', Astro.site).href };
+
+// One MusicAlbum per record, with the full tracklist — this is the page search
+// engines and AI answers should be reading the discography off.
+const schema = albums.map((album) => ({
+  '@context': 'https://schema.org',
+  '@type': 'MusicAlbum',
+  name: album.name,
+  byArtist: BAND,
+  datePublished: String(album.year),
+  numTracks: album.songs.length,
+  genre: 'Punk rock',
+  inLanguage: 'ca',
+  url: `https://open.spotify.com/album/${album.spotifyId}`,
+  sameAs: ['https://resbcn.bandcamp.com'],
+  albumProductionType: 'https://schema.org/StudioAlbum',
+  albumReleaseType: 'https://schema.org/AlbumRelease',
+  track: album.songs.map((song, i) => ({
+    '@type': 'MusicRecording',
+    name: song,
+    position: i + 1,
+    byArtist: BAND,
+    inAlbum: { '@type': 'MusicAlbum', name: album.name },
+    ...(lyricUrlFor(song) ? { url: lyricUrlFor(song) } : {}),
+  })),
+}));
 ---
 
-<Layout title="Música">
+<Layout title="Música" description={description} schema={schema}>
   <div class="page-wrap">
     <h1 class="page-title">Música</h1>
     <div class="albums-grid">
@@ -21,7 +71,7 @@ import { albums } from '../data/albums';
             </div>
             <div class="album-hover">
               <div class="album-meta">
-                <div class="a-yr">{album.year} · {i === 0 ? 'Primer àlbum' : 'Segon àlbum'}</div>
+                <div class="a-yr">{album.year} · {releaseOrdinal(album)} àlbum</div>
                 <div class="a-ttl">{album.name}</div>
                 <div class="a-lnks">
                   <a href={`https://open.spotify.com/album/${album.spotifyId}`} target="_blank" rel="noopener" class="a-lnk">Spotify</a>

@@ -12,9 +12,48 @@ export async function getStaticPaths() {
 }
 
 const { lyric } = Astro.props;
+
+const description = `Lletra de «${lyric.data.title}» de No som RES!, de l'àlbum «${lyric.data.album}». Punk rock en català des de Barcelona.`;
+
+const BAND = { '@type': 'MusicGroup', name: 'No som RES!', url: new URL('/', Astro.site).href };
+
+// Credits are stored as a Catalan name list ("Enric, Aimar i Àlex"), so split on
+// both separators to get one Person per writer instead of one mangled name.
+const people = (names: string) =>
+  names
+    .split(/,\s*|\s+i\s+/)
+    .map((n) => n.trim())
+    .filter(Boolean)
+    .map((name) => ({ '@type': 'Person', name }));
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MusicComposition',
+    name: lyric.data.title,
+    inLanguage: 'ca',
+    composer: people(lyric.data.composer),
+    datePublished: lyric.data.date.toISOString().slice(0, 10),
+    recordedAs: {
+      '@type': 'MusicRecording',
+      name: lyric.data.title,
+      byArtist: BAND,
+      inAlbum: { '@type': 'MusicAlbum', name: lyric.data.album, byArtist: BAND },
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inici', item: new URL('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'Lletres', item: new URL(withBase('/lyrics'), Astro.site).href },
+      { '@type': 'ListItem', position: 3, name: lyric.data.title },
+    ],
+  },
+];
 ---
 
-<Layout title={lyric.data.title}>
+<Layout title={lyric.data.title} description={description} schema={schema}>
   <div class="page-wrap">
     <p class="breadcrumb">
       <a href={withBase('/lyrics')}>Lletres</a>
