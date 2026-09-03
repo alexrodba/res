@@ -90,6 +90,13 @@ a { text-decoration: none; color: inherit; }
   padding: 16px 60px;
   border-bottom-color: var(--line);
 }
+/* The wordmark is an IMAGE of text, which WCAG 1.4.3 covers just like text.
+   The SVG hardcodes its own red (#F00024, 4.46:1 on --black) rather than
+   --red — enough for the 3:1 large-text threshold, not for the 4.5:1 normal-
+   text one. At 198px wide the glyphs clear the 24px large-text mark, so don't
+   shrink it much below the 176px used at the mobile breakpoint: past that the
+   4.5:1 bar applies and this red fails it. Same trap as PRI-290, which the
+   old text-based logo hit at 22px. */
 .nav-logo { display: block; width: 198px; flex-shrink: 0; line-height: 0; }
 .nav-logo img { width: 100%; height: auto; }
 .nav-links { display: flex; gap: 36px; list-style: none; }
@@ -413,6 +420,7 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
   .nav-links li { width: 100%; border-bottom: 1px solid var(--line); }
   .nav-links li:last-child { border-bottom: none; }
   .nav-links a { display: block; padding: 18px 2px; font-size: 13px; letter-spacing: 3px; color: var(--bone); }
+  /* 176px is the floor — see the .nav-logo contrast note above. */
   .nav-logo { width: 176px; position: relative; z-index: 1101; }
   .hero-stack .r { font-size: clamp(52px, 17vw, 90px); }
   .media-photos { grid-template-columns: 1fr; }
