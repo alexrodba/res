@@ -61,8 +61,10 @@ const schema = [
 
     <h1 class="page-title">{post.data.title}</h1>
 
-    <p style="font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--dim); margin-bottom: 48px;">
-      {post.data.date.toLocaleDateString('ca-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+    <p class="post-date">
+      <time datetime={post.data.date.toISOString().slice(0, 10)}>
+        {post.data.date.toLocaleDateString('ca-ES', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
+      </time>
     </p>
 
     <div class="prose-content">
