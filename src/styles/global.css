@@ -192,6 +192,30 @@ a { text-decoration: none; color: inherit; }
 .c-link { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--red-text); border-bottom: 1px solid var(--red); padding-bottom: 2px; white-space: nowrap; transition: color 0.2s, border-color 0.2s; }
 .c-link:hover { color: var(--bone); border-color: var(--bone); }
 
+/* ─── PAST CONCERTS ─── one unfoldable row per gig, holding its setlist.
+   Built on <details>/<summary> rather than the lyrics grid's div + JS toggle,
+   so the rows are keyboard- and screen-reader-operable with no script. The
+   date and place reuse the .c-* classes from the table above, so the history
+   reads as the same object as an upcoming date. */
+.past-list { width: 100%; }
+.past-row { border-bottom: 1px solid var(--line); }
+.past-row:first-child { border-top: 1px solid var(--line); }
+.past-row[open] { background: rgba(232,0,29,0.04); }
+.past-header { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 40px; padding: 28px 0; cursor: pointer; list-style: none; transition: padding-left 0.25s; }
+.past-header::-webkit-details-marker { display: none; }
+.past-header:hover { padding-left: 14px; }
+.past-note { display: inline-block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--red-text); border: 1px solid var(--line); padding: 5px 12px; margin-top: 10px; }
+.past-plus { font-size: 18px; color: var(--dim-text); transition: transform 0.2s; }
+.past-row[open] .past-plus { transform: rotate(45deg); color: var(--red); }
+.past-body { padding: 4px 0 32px; }
+.past-setlist { list-style: none; counter-reset: song; display: grid; gap: 10px; max-width: 520px; }
+.past-song { counter-increment: song; display: flex; gap: 14px; font-family: var(--font-read); font-size: 15px; line-height: 1.5; color: var(--mid); }
+.past-song::before { content: counter(song, decimal-leading-zero); font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--red-text); padding-top: 3px; }
+.past-song a { border-bottom: 1px solid var(--line); transition: color 0.2s, border-color 0.2s; }
+.past-song a:hover { color: var(--bone); border-color: var(--red); }
+.past-nosetlist { font-family: var(--font-read); font-size: 15px; line-height: 1.7; color: var(--dim-text); }
+.past-links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 22px; }
+
 /* Empty state — no gigs booked. Reuses the concert-table's top/bottom hairlines. */
 .concert-empty { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 64px 0; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
 .concert-empty-title { font-family: 'Anton', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: 0.95; letter-spacing: -0.5px; color: var(--bone); }
@@ -379,6 +403,7 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
   .news-item { grid-template-columns: 1fr; gap: 28px; }
   .albums-grid { grid-template-columns: 1fr; gap: 48px; }
   .concert-row { grid-template-columns: 64px 1fr auto; gap: 16px; }
+  .past-header { grid-template-columns: 64px 1fr auto; gap: 16px; }
   .c-badge { display: none; }
   .c-venue { font-size: 16px; }
   .lyrics-grid { grid-template-columns: 1fr; }
@@ -425,5 +450,6 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
   .hero-stack .r { font-size: clamp(52px, 17vw, 90px); }
   .media-photos { grid-template-columns: 1fr; }
   .concert-row { grid-template-columns: 56px 1fr; }
+  .past-header { grid-template-columns: 56px 1fr auto; gap: 14px; }
   .c-ticket { display: none; }
 }

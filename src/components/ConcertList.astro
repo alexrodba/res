@@ -3,10 +3,9 @@ import type { Concert } from '../data/concerts';
 
 interface Props {
   concerts: Concert[];
-  variant?: 'upcoming' | 'past';
 }
 
-const { concerts, variant = 'upcoming' } = Astro.props;
+const { concerts } = Astro.props;
 
 const MONTHS = ['Gen', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Des'];
 // Concert dates are authored as YYYY-MM-DD (UTC midnight) — read in UTC so the
@@ -27,19 +26,11 @@ function parts(dateStr: string) {
           <div class="c-mon">{mon} {year}</div>
         </div>
         <div>
-          <div class="c-venue">{c.venue}</div>
-          <div class="c-loc">{c.city}</div>
+          <div class="c-venue">{c.venue ?? c.city}</div>
+          {c.venue && c.city && <div class="c-loc">{c.city}</div>}
         </div>
-        <span class="c-badge">{variant === 'past' ? 'Passat' : 'Concert'}</span>
-        {variant === 'past' ? (
-          <div class="c-links">
-            {c.setlistUrl && <a class="c-link" href={c.setlistUrl} target="_blank" rel="noopener">Setlist</a>}
-            {c.photosUrl && <a class="c-link" href={c.photosUrl} target="_blank" rel="noopener">Fotos</a>}
-            {c.videoUrl && <a class="c-link" href={c.videoUrl} target="_blank" rel="noopener">Vídeo</a>}
-          </div>
-        ) : (
-          c.ticketsUrl && <a class="c-ticket" href={c.ticketsUrl} target="_blank" rel="noopener">Entrades</a>
-        )}
+        <span class="c-badge">Concert</span>
+        {c.ticketsUrl && <a class="c-ticket" href={c.ticketsUrl} target="_blank" rel="noopener">Entrades</a>}
       </div>
     );
   })}
