@@ -90,8 +90,8 @@ a { text-decoration: none; color: inherit; }
   padding: 16px 60px;
   border-bottom-color: var(--line);
 }
-.nav-logo { font-family: 'Anton', sans-serif; font-size: 24px; letter-spacing: 3px; color: var(--bone); }
-.nav-logo em { color: var(--red); font-style: normal; }
+.nav-logo { display: block; width: 198px; flex-shrink: 0; line-height: 0; }
+.nav-logo img { width: 100%; height: auto; }
 .nav-links { display: flex; gap: 36px; list-style: none; }
 .nav-links a { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--dim-text); transition: color 0.2s; }
 .nav-links a:hover { color: var(--bone); }
@@ -332,8 +332,8 @@ a { text-decoration: none; color: inherit; }
 /* ─── FOOTER ─── */
 footer { background: #050504; border-top: 1px solid #0f0f0e; }
 .footer-top { display: flex; justify-content: space-between; align-items: center; padding: 48px 60px 40px; border-bottom: 1px solid var(--line); }
-.footer-logo { font-family: 'Anton', sans-serif; font-size: 36px; letter-spacing: 3px; color: var(--bone); }
-.footer-logo em { font-style: normal; color: var(--red); }
+.footer-logo { width: min(352px, 79vw); flex-shrink: 0; line-height: 0; }
+.footer-logo img { width: 100%; height: auto; }
 .footer-socials { display: flex; gap: 28px; }
 .footer-socials a { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--footer-text); transition: color 0.2s; }
 .footer-socials a:hover { color: var(--bone); }
@@ -410,9 +410,7 @@ footer { background: #050504; border-top: 1px solid #0f0f0e; }
   .nav-links li { width: 100%; border-bottom: 1px solid var(--line); }
   .nav-links li:last-child { border-bottom: none; }
   .nav-links a { display: block; padding: 18px 2px; font-size: 13px; letter-spacing: 3px; color: var(--bone); }
-  /* Stays at 24px: .nav-logo em is --red, which needs the ≥24px large-text
-     threshold to be legible enough (4.20:1). Dropping below 24 fails WCAG AA. */
-  .nav-logo { font-size: 24px; position: relative; z-index: 1101; }
+  .nav-logo { width: 176px; position: relative; z-index: 1101; }
   .hero-stack .r { font-size: clamp(52px, 17vw, 90px); }
   .media-photos { grid-template-columns: 1fr; }
   .concert-row { grid-template-columns: 56px 1fr; }
