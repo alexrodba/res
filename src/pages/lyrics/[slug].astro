@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { withBase } from '../../lib/base';
+import { albums } from '../../data/albums';
 
 export async function getStaticPaths() {
   const lyrics = await getCollection('lyrics');
@@ -16,6 +17,16 @@ const { lyric } = Astro.props;
 const description = `Lletra de «${lyric.data.title}» de No som RES!, de l'àlbum «${lyric.data.album}». Punk rock en català des de Barcelona.`;
 
 const BAND = { '@type': 'MusicGroup', name: 'No som RES!', url: new URL('/', Astro.site).href };
+
+// A song shares its own album's card rather than the generic site one. Falls
+// through to the Layout default if the album isn't in albums.ts.
+const album = albums.find((a) => a.name === lyric.data.album);
+const share = album
+  ? {
+      ogImage: album.ogImage,
+      ogImageAlt: `Portada de «${album.name}» de No som RES! amb el logotip del grup.`,
+    }
+  : {};
 
 // Credits are stored as a Catalan name list ("Enric, Aimar i Àlex"), so split on
 // both separators to get one Person per writer instead of one mangled name.
@@ -53,7 +64,7 @@ const schema = [
 ];
 ---
 
-<Layout title={lyric.data.title} description={description} schema={schema}>
+<Layout title={lyric.data.title} description={description} schema={schema} {...share}>
   <div class="page-wrap">
     <p class="breadcrumb">
       <a href={withBase('/lyrics')}>Lletres</a>

@@ -54,7 +54,13 @@ const schema = albums.map((album) => ({
 }));
 ---
 
-<Layout title="Música" description={description} schema={schema}>
+<Layout
+  title="Música"
+  description={description}
+  schema={schema}
+  ogImage="/og/music.jpg"
+  ogImageAlt="Les portades dels dos àlbums de No som RES!: «Sou tots uns fills de puta» (2022) i «Les teves merdes» (2023)."
+>
   <div class="page-wrap">
     <h1 class="page-title">Música</h1>
     <div class="albums-grid">
